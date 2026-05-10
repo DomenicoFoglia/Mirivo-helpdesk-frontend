@@ -1,0 +1,31 @@
+{
+    "auth": {
+        "login_title": "Bentornato",
+        "login_subtitle": "Accedi al tuo account per continuare",
+        "register_title": "Crea un account",
+        "register_subtitle": "Crea il workspace per la tua azienda",
+        "email": "Email",
+        "password": "Password",
+        "confirm_password": "Conferma password",
+        "confirm_password_placeholder": "Ripeti password",
+        "name": "Nome",
+        "surname": "Cognome",
+        "surname_placeholder": "Il tuo cognome",
+        "company_name": "Nome azienda",
+        "company_name_placeholder": "Nome della tua azienda",
+        "upload_logo": "Carica Logo",
+        "forgot_password": "Password dimenticata?",
+        "login_btn": "Accedi",
+        "register_btn": "Registrati",
+        "logging_in": "Accesso in corso...",
+        "registering": "Registrazione...",
+        "no_account": "Non hai un account?",
+        "have_account": "Hai già un account?",
+        "sign_up": "Registrati",
+        "sign_in": "Accedi",
+        "email_placeholder": "nome@esempio.com",
+        "name_placeholder": "Il tuo nome",
+        "password_placeholder": "Minimo 12 caratteri",
+        "password_hint": "Almeno 12 caratteri, una maiuscola, un numero e un simbolo"
+    }
+}

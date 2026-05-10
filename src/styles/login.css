@@ -1,0 +1,279 @@
+/* PAGINA LOGIN - LAYOUT BASE*/
+
+.login-page {
+	display: grid;
+	place-items: center;
+	min-height: 100vh;
+	margin: 0;
+	padding: 32px;
+	background: #17171f;
+	color: #f9f9f9;
+	position: relative;
+	overflow: hidden;
+	font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* BLOB DI SFONDO */
+
+.login-blob-1 {
+	position: fixed;
+	top: -55vmin;
+	left: -55vmin;
+	width: 110vmin;
+	height: 110vmin;
+	border-radius: 47% 53% 61% 39% / 45% 51% 49% 55%;
+	background: #BA7517;
+	opacity: 0.7;
+	z-index: 0;
+}
+
+.login-blob-2 {
+	position: fixed;
+	bottom: -55vmin;
+	right: -55vmin;
+	width: 110vmin;
+	height: 110vmin;
+	border-radius: 47% 53% 61% 39% / 45% 51% 49% 55%;
+	background: #639922;
+	opacity: 0.7;
+	z-index: 0;
+}
+
+/* CARD  */
+
+/*
+	La card e' il riquadro centrale con il form.
+	position: relative + z-index: 3 la mette sopra i blob.
+	backdrop-filter: blur() crea l'effetto vetro smerigliato
+	sfumando cio' che c'e' dietro la card.
+	background: rgb(255 255 255 / 4%) = bianco quasi trasparente,
+	che combinato col blur crea il vetro.
+	border con rgba bassa = bordo appena visibile, raffinato.
+*/
+.login-card {
+	position: relative;
+	z-index: 3;
+	width: 100%;
+	max-width: 360px;
+	padding: 64px 30px 48px;
+	border-radius: 48px;
+	border: 6px solid rgb(255 255 255 / 6%);
+	background: rgb(255 255 255 / 4%);
+	backdrop-filter: blur(44px);
+	text-align: center;
+	box-shadow: 0 100px 100px rgb(0 0 0 / 15%);
+}
+
+/* LOGO PLACEHOLDER*/
+
+.login-logo {
+	width: 90px;
+	height: 90px;
+	margin: 0 auto 28px;
+	border-radius: 50%;
+	border: 6px solid rgb(255 255 255 / 14%);
+	background: rgb(255 255 255 / 6%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 28px;
+	font-weight: 700;
+	color: #BA7517;
+	letter-spacing: 1px;
+}
+
+/* TITOLO */
+
+.login-card h2 {
+	font-size: 20px;
+	font-weight: 400;
+	margin: 0 0 32px;
+	color: #f9f9f9;
+}
+
+/*  FORM E INPUT*/
+
+/*
+    display: grid + gap crea spaziatura uniforme tra gli elementi
+    senza dover mettere margin su ognuno.
+*/
+.login-form {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+}
+
+.login-input-wrapper {
+    position: relative;
+}
+
+.login-input-wrapper span {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.login-form input,
+.login-form button {
+    width: 100%;
+    height: 56px;
+    border-radius: 28px;
+    font-size: 16px;
+    font-family: inherit;
+    outline: none;
+    transition: box-shadow 0.3s;
+    box-sizing: border-box;
+}
+
+.login-form input:focus,
+.login-form button:focus {
+    
+}
+
+.login-form input {
+    border: 0;
+    padding: 0 24px 0 48px;
+    color: #f9f9f9;
+    background: rgb(255 255 255 / 6%);
+}
+
+.login-form input::placeholder {
+    color: rgb(255 255 255 / 32%);
+}
+
+/* icone input */
+.login-input-wrapper svg {
+	color: #BA7517;
+}
+
+/* BUTTON */
+
+.login-form button {
+    border: 0;
+    color: #f9f9f9;
+    background: rgb(255 255 255 / 8%);
+    font-weight: 500;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+}
+
+.login-form button:hover {
+    background: #BA7517;
+}
+
+/* LINK FORGOT PASSWORD */
+
+.login-forgot {
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    color: #f9f9f9;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.login-forgot:hover {
+    opacity: 1;
+}
+
+/* FOOTER */
+
+.login-footer {
+    margin-top: 24px;
+    color: rgb(255 255 255 / 38%);
+    font-size: 14px;
+}
+
+.login-footer a {
+    color: #f9f9f9;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-footer a:hover {
+    color: #BA7517;
+}
+
+/* griglia due colonne per register */
+.login-form-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
+}
+
+.login-form-grid .full-width {
+	grid-column: 1 / -1;
+}
+
+/* campo file personalizzato */
+.login-file-label {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	height: 56px;
+	border-radius: 28px;
+	background: rgb(255 255 255 / 6%);
+	color: rgb(255 255 255 / 60%);
+	font-size: 14px;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+.login-file-label:hover {
+	background: rgb(255 255 255 / 12%);
+}
+
+.login-file-label.has-file {
+	color: #BA7517;
+}
+
+.login-file-input {
+	display: none;
+}
+
+/* card più larga per register */
+.login-card.register-card {
+	max-width: 560px;
+	width: 100%;
+}
+
+/* responsive register */
+@media (max-width: 600px) {
+	.login-card.register-card {
+		max-width: 100%;
+	}
+
+	.login-form-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+
+/* language switcher */
+.lang-switcher {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	background: rgb(255 255 255 / 8%);
+	border: 1px solid rgb(255 255 255 / 12%);
+	color: #f9f9f9;
+	border-radius: 20px;
+	padding: 6px 14px;
+	font-size: 13px;
+	cursor: pointer;
+	transition: background 0.3s;
+	z-index: 10;
+}
+
+.lang-switcher:hover {
+	background: rgb(255 255 255 / 16%);
+}
