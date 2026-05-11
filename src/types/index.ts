@@ -13,6 +13,7 @@ export interface User {
     level: 1 | 2 | null
     company_id: number
     theme: string
+    company: Company
 }
 
 export interface Category {
@@ -65,3 +66,8 @@ export interface Invitation {
     expires_at: string
     company_id: number
 }
+
+export type NavItem =
+    | { type: 'label'; text: string }
+    | { type: 'divider' }
+    | { type: 'item'; text: string; icon: string; path: string; badge?: number; children?: { text: string; path: string }[] }

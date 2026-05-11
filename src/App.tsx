@@ -6,6 +6,8 @@ import AgentDashboard from './pages/agent/Dashboard'
 import AdminDashboard from './pages/admin/Dashboard'
 import ProtectedRoute from './components/ProtectedRoute'
 import RoleRoute from './components/RoleRoute'
+import AppShell from './components/layout/AppShell'
+import { adminNavItems } from './navigation/adminNav'
 
 function App() {
   return (
@@ -25,7 +27,9 @@ function App() {
         </Route>
 
         <Route element={<RoleRoute allowedRole="admin" />}>
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route element={<AppShell navItems={adminNavItems} />}>
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          </Route>
         </Route>
       </Route>
 
