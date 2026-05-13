@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
@@ -8,8 +9,22 @@ import ProtectedRoute from './components/ProtectedRoute'
 import RoleRoute from './components/RoleRoute'
 import AppShell from './components/layout/AppShell'
 import { adminNavItems } from './navigation/adminNav'
+import useAuthStore from './store/authStore'
+import { getMeApi } from './api/user'
 
 function App() {
+  const token = useAuthStore((state) => state.token)
+  const setUser = useAuthStore((state) => state.setUser)
+  const logout = useAuthStore((state) => state.logout)
+
+  useEffect(() => {
+    if (token) {
+      getMeApi()
+        .then((response) => setUser(response.data))
+        .catch(() => logout())
+    }
+  }, [])
+
   return (
     <Routes>
       {/* Pubbliche */}

@@ -6,7 +6,12 @@ interface RoleRouteProps {
 }
 
 function RoleRoute({ allowedRole }: RoleRouteProps) {
-    const { user } = useAuthStore()
+    const { user, token } = useAuthStore()
+
+    // Token presente ma utente non ancora caricato: aspetta
+    if (token && !user) {
+        return null
+    }
 
     if (!user) {
         return <Navigate to="/login" replace />

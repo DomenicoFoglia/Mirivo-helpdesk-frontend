@@ -5,6 +5,7 @@ interface AuthStore {
     user: User | null
     token: string | null
     login: (user: User, token: string) => void
+    setUser: (user: User) => void
     logout: () => void
 }
 
@@ -25,6 +26,14 @@ const useAuthStore = create<AuthStore>((set) => ({
             localStorage.setItem('theme', user.theme)
         }
         set({ user, token })
+    },
+
+    setUser: (user) => {
+        if (user?.theme) {
+            applyTheme(user.theme)
+            localStorage.setItem('theme', user.theme)
+        }
+        set({ user })
     },
 
     logout: () => {
