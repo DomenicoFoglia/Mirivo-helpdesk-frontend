@@ -9,6 +9,8 @@ import ProtectedRoute from './components/ProtectedRoute'
 import RoleRoute from './components/RoleRoute'
 import AppShell from './components/layout/AppShell'
 import { adminNavItems } from './navigation/adminNav'
+import { agentNavItems } from './navigation/agentNav'
+import { userNavItems } from './navigation/userNav'
 import useAuthStore from './store/authStore'
 import { getMeApi } from './api/user'
 
@@ -34,11 +36,15 @@ function App() {
       {/* Protette */}
       <Route element={<ProtectedRoute />}>
         <Route element={<RoleRoute allowedRole="user" />}>
-          <Route path="/user/dashboard" element={<UserDashboard />} />
+          <Route element= {<AppShell navItems={userNavItems} />}>
+            <Route path="/user/dashboard" element={<UserDashboard />} />
+          </Route>
         </Route>
 
         <Route element={<RoleRoute allowedRole="agent" />}>
-          <Route path="/agent/dashboard" element={<AgentDashboard />} />
+          <Route element={<AppShell navItems={agentNavItems} />}>
+            <Route path="/agent/dashboard" element={<AgentDashboard />} />
+          </Route>
         </Route>
 
         <Route element={<RoleRoute allowedRole="admin" />}>
