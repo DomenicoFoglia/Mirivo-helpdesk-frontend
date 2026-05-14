@@ -1,4 +1,17 @@
 :root,
+[data-theme="amber"] {
+    --bg-primary: rgb(255, 252, 247);
+    --bg-secondary: rgb(255, 255, 255);
+    --bg-tertiary: rgb(250, 244, 232);
+    --border-color: rgb(225, 210, 185);
+    --accent: rgb(186, 117, 23);
+    --accent-muted: rgb(250, 238, 218);
+    --text-primary: rgb(44, 44, 42);
+    --text-secondary: rgb(120, 80, 20);
+    --text-muted: rgb(160, 120, 60);
+    --text-hint: rgb(200, 170, 110);
+}
+
 [data-theme="midnight"] {
     --bg-primary: rgb(26, 31, 46);
     --bg-secondary: rgb(19, 24, 37);

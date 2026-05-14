@@ -1,13 +1,14 @@
 import type { NavItem } from "../types"
+import { LayoutDashboard, TicketCheck, CheckCircle2, MessageSquare, UserCircle } from "lucide-react"
 
 export const userNavItems: NavItem[] = [
     { type: 'label', text: 'Workspace' },
-    { type: 'item', icon: '', text: 'Panoramica', path: '/user/dashboard' },
-    { type: 'item', icon: '', text: 'I miei ticket aperti', path: '/user/tickets/opened', badge: 3 },
-    { type: 'item', icon: '', text: 'I miei ticket chiusi', path: '/user/tickets/closed'},
+    { type: 'item', icon: LayoutDashboard, text: 'Panoramica', path: '/user/dashboard' },
+    { type: 'item', icon: TicketCheck, text: 'Ticket aperti', path: '/user/tickets/opened', badge: 3 },
+    { type: 'item', icon: CheckCircle2, text: 'Ticket chiusi', path: '/user/tickets/closed'},
     { type: 'divider' },
     { type: 'label', text: 'Configurazione' },
-    { type: 'item', icon: '', text: 'FAQ', path: '/user/faqs' },
+    { type: 'item', icon: MessageSquare, text: 'FAQ', path: '/user/faqs' },
     { type: 'divider' },
-    { type: 'item', icon: '', text: 'Profilo', path: '/user/profile' },
+    { type: 'item', icon: UserCircle, text: 'Profilo', path: '/user/profile' },
 ]

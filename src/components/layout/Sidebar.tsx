@@ -2,11 +2,11 @@ import type { NavItem } from "../../types"
 import { useNavigate } from "react-router-dom"
 import './Sidebar.css'
 
-function Sidebar({ navItems }: { navItems: NavItem[] }) {
+function Sidebar({ navItems, drawerOpen, onClose }: { navItems: NavItem[]; drawerOpen: boolean; onClose: () => void }) {
     const navigate = useNavigate()
 
     return (
-        <div className="sidebar">
+        <div className={`sidebar ${drawerOpen ? 'drawer-open' : ''}`}>
             {navItems.map((item, index) => {
                 if (item.type === 'divider') return <hr key={index} className="nav-divider" />
                 
@@ -14,28 +14,35 @@ function Sidebar({ navItems }: { navItems: NavItem[] }) {
                     <span key={index} className="nav-section-label">{item.text}</span>
                 )
                 
-                if (item.type === 'item') return (
-                    <div key={index}>
-                        <div className="nav-item" onClick={() => navigate(item.path)}>
-                            {item.text}
-                            {item.badge && <span className="badge-count">{item.badge}</span>}
-                        </div>
-                        {item.children && (
-                            <div className="nav-sub">
-                                {item.children.map((child, childIndex) => (
-                                    <div key={childIndex} className="nav-item" onClick={() => navigate(child.path)}>
-                                        {child.text}
-                                    </div>
-                                ))}
+                if (item.type === 'item') {
+                    const Icon = item.icon
+                    return (
+                        <div key={index}>
+                            <div className="nav-item" onClick={() => navigate(item.path)}>
+                                <Icon size={18} />
+                                {item.text}
+                                {item.badge && <span className="badge-count">{item.badge}</span>}
                             </div>
-                        )}
-                    </div>
-                )
+                            {item.children && (
+                                <div className="nav-sub">
+                                    {item.children.map((child, childIndex) => (
+                                        <div key={childIndex} className="nav-item" onClick={() => navigate(child.path)}>
+                                            {child.text}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    )
+                }
 
                 return null
             })}
         </div>
+
     )
 }
 
 export default Sidebar
+
+

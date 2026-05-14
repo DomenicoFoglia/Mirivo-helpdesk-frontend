@@ -4,9 +4,10 @@ import useAuthStore from '../../store/authStore'
 import {useNavigate} from 'react-router-dom'
 // import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../LanguageSwitcher'
+import { Menu } from 'lucide-react'
 
 
-function Topbar(){
+function Topbar({onHamburgerClick}: {onHamburgerClick: () => void}){
     const logout = useAuthStore((state) => state.logout);
     const user = useAuthStore((state) => state.user);
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ function Topbar(){
 
     return(
         <header className="topbar">
-
+            <button className='hamburger-btn' onClick={onHamburgerClick}><Menu size={22} /></button>
             <span className="wordmark">mir<em>i</em>vo</span>
             <span className="ws-chip">{user?.company.name}</span>
             <div className="topbar-user-section">

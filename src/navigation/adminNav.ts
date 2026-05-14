@@ -1,20 +1,21 @@
 import type { NavItem } from "../types"
+import { LayoutDashboard, Ticket, MessageSquare, FolderTree, Users, Mail, UserCircle } from "lucide-react"
 
 export const adminNavItems: NavItem[] = [
     { type: 'label', text: 'Workspace' },
-    { type: 'item', icon: '', text: 'Panoramica', path: '/admin/dashboard' },
-    { type: 'item', icon: '', text: 'Ticket', path: '/admin/tickets', badge: 3 },
+    { type: 'item', icon: LayoutDashboard, text: 'Panoramica', path: '/admin/dashboard' },
+    { type: 'item', icon: Ticket, text: 'Ticket', path: '/admin/tickets', badge: 3 },
     { type: 'divider' },
     { type: 'label', text: 'Team' },
-    { type: 'item', icon: '', text: 'Utenti', path: '/admin/users', children: [
+    { type: 'item', icon: Users, text: 'Utenti', path: '/admin/users', children: [
         { text: 'Agenti', path: '/admin/users/agents' },
         { text: 'Utenti finali', path: '/admin/users/end-users' },
     ]},
-    { type: 'item', icon: '', text: 'Inviti', path: '/admin/invitations', badge: 2 },
+    { type: 'item', icon: Mail, text: 'Inviti', path: '/admin/invitations', badge: 2 },
     { type: 'divider' },
     { type: 'label', text: 'Configurazione' },
-    { type: 'item', icon: '', text: 'Categorie', path: '/admin/categories' },
-    { type: 'item', icon: '', text: 'FAQ', path: '/admin/faqs' },
+    { type: 'item', icon: FolderTree, text: 'Categorie', path: '/admin/categories' },
+    { type: 'item', icon: MessageSquare, text: 'FAQ', path: '/admin/faqs' },
     { type: 'divider' },
-    { type: 'item', icon: '', text: 'Impostazioni', path: '/admin/settings' },
+    { type: 'item', icon: UserCircle, text: 'Impostazioni', path: '/admin/settings' },
 ]

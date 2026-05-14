@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react"
+
 export interface Company {
     id: number
     name: string
@@ -70,4 +72,4 @@ export interface Invitation {
 export type NavItem =
     | { type: 'label'; text: string }
     | { type: 'divider' }
-    | { type: 'item'; text: string; icon: string; path: string; badge?: number; children?: { text: string; path: string }[] }
+    | { type: 'item'; text: string; icon: LucideIcon; path: string; badge?: number; children?: { text: string; path: string }[] }
