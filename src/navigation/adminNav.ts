@@ -8,8 +8,8 @@ export const adminNavItems: NavItem[] = [
     { type: 'divider' },
     { type: 'label', text: 'Team' },
     { type: 'item', icon: Users, text: 'Utenti', path: '/admin/users', children: [
-        { text: 'Agenti', path: '/admin/users/agents' },
-        { text: 'Utenti finali', path: '/admin/users/end-users' },
+        { text: 'Tecnici', path: '/admin/users/agents' },
+        { text: 'Utenti', path: '/admin/users/end-users' },
     ]},
     { type: 'item', icon: Mail, text: 'Inviti', path: '/admin/invitations', badge: 2 },
     { type: 'divider' },

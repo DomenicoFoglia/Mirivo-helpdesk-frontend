@@ -1,13 +1,22 @@
-
-
-
-const fakeMyTickets = [
-    { id: 1, title: "Errore pagina checkout", status: "open" },
-    { id: 2, title: "Reset password non funziona", status: "working" },
-    { id: 3, title: "Email di conferma mancante", status: "closed" },
-]
+import { useState, useEffect } from "react"
+import { userTicketsApi } from "../../api/userDashboard"
+import type { Ticket } from "../../types";
 
 function Dashboard() {
+    const [ userTickets, setUserTickets] = useState<Ticket[]>([]);
+
+    useEffect(() => {
+        const fetchTickets = async () => {
+            try{
+                const userTicketsRes = await userTicketsApi();
+                setUserTickets(userTicketsRes.data.data);
+
+            }catch(err){
+                console.error(err);
+            }
+        }
+        fetchTickets();
+    },[]); 
 
     return (
         <div className="p-6 max-w-2xl mx-auto">
@@ -18,10 +27,10 @@ function Dashboard() {
                     <span className="text-sm font-medium text-gray-400 uppercase tracking-wide">Stato</span>
                 </div>
                 <div className="divide-y divide-gray-100">
-                    {fakeMyTickets.length === 0 ? (
+                    {userTickets.length === 0 ? (
                         <p className="text-base text-gray-400 py-4 text-center">Nessun ticket aperto</p>
                     ) : (
-                        fakeMyTickets.map(ticket => (
+                        userTickets.map(ticket => (
                             <div key={ticket.id} className="flex items-center justify-between py-2.5">
                                 <span className="text-sm text-gray-600">{ticket.title}</span>
                                 <span

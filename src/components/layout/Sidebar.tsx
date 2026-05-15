@@ -1,5 +1,5 @@
 import type { NavItem } from "../../types"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, NavLink } from "react-router-dom"
 import './Sidebar.css'
 
 function Sidebar({ navItems, drawerOpen, onClose }: { navItems: NavItem[]; drawerOpen: boolean; onClose: () => void }) {
@@ -18,11 +18,16 @@ function Sidebar({ navItems, drawerOpen, onClose }: { navItems: NavItem[]; drawe
                     const Icon = item.icon
                     return (
                         <div key={index}>
-                            <div className="nav-item" onClick={() => navigate(item.path)}>
+                            <NavLink to={item.path} className={({isActive}) => isActive ? "nav-item active" : "nav-item"} data-tooltip={item.text}>
                                 <Icon size={18} />
                                 {item.text}
                                 {item.badge && <span className="badge-count">{item.badge}</span>}
-                            </div>
+                            </NavLink>
+                            {/* <div className="nav-item" onClick={() => navigate(item.path)}>
+                                <Icon size={18} />
+                                {item.text}
+                                {item.badge && <span className="badge-count">{item.badge}</span>}
+                            </div> */}
                             {item.children && (
                                 <div className="nav-sub">
                                     {item.children.map((child, childIndex) => (
