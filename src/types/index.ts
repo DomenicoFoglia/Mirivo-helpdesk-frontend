@@ -18,6 +18,10 @@ export interface User {
     company: Company
 }
 
+export type AgentSummary = Pick<User, 'id' | 'name' | 'level' > & {
+    assignee_tickets_count: number
+}
+
 export interface Category {
     id: number
     name: string
@@ -34,13 +38,17 @@ export interface Ticket {
     id: number
     title: string
     status: 'open' | 'working' | 'escalated' | 'closed'
+    priority: 'low' | 'medium' | 'high'
     user_id: number
     assignee_id: number | null
     company_id: number
     category_id: number
     created_at: string
+    updated_at: string
     closed_at: string | null
 }
+
+export type AttentionTicket = Pick<Ticket, 'id'| 'title' | 'priority' | 'updated_at' >
 
 export interface Message {
     id: number
@@ -57,7 +65,11 @@ export interface Faq {
     answer: string
     category_id: number
     company_id: number
+    created_at: string
+    updated_at : string
 }
+
+export type RecentFaq = Pick<Faq, 'id' | 'question' | 'created_at' >
 
 export interface Invitation {
     id: number
@@ -66,10 +78,23 @@ export interface Invitation {
     token: string
     accepted_at: string | null
     expires_at: string
+    created_at: string
+    updated_at: string
     company_id: number
 }
+
+export type PendingInvitation = Pick<Invitation, 'email' | 'role' | 'created_at' >
 
 export type NavItem =
     | { type: 'label'; text: string }
     | { type: 'divider' }
     | { type: 'item'; text: string; icon: LucideIcon; path: string; badge?: number; children?: { text: string; path: string }[] }
+
+// L'interfaccia con i 4 tipi creati sopra, serve per gestire gli array che arrivano dal backend
+// dal metodo details() 
+export interface AdminDashboardDetails{
+    attentionTickets: AttentionTicket[]
+    agents: AgentSummary[]
+    pendingInvitations: PendingInvitation[]
+    recentFaqs: RecentFaq[]
+}

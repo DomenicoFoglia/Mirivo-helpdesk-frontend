@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-import { statsApi } from "../../api/adminDashboard"
+import { statsApi, detailsApi } from "../../api/adminDashboard"
+import type { AdminDashboardDetails } from "../../types"
 
 const amberBars = [40, 55, 45, 70, 60, 80, 100]
 const purpleBars = [60, 80, 55, 75, 90, 70, 100]
@@ -19,47 +20,36 @@ function Sparkline({ bars, color }: { bars: number[]; color: string }) {
     )
 }
 
-const fakeDetails = {
-    attentionTickets: [
-        { id: 1, title: "Errore pagina checkout", priority: "high" },
-        { id: 2, title: "Reset password non funziona", priority: "medium" },
-        { id: 3, title: "Email di conferma mancante", priority: "low" },
-    ],
-    agents: [
-        { id: 1, name: "Luigi Verdi", workingTickets: 5 },
-        { id: 2, name: "Sara Neri", workingTickets: 3 },
-        { id: 3, name: "Marco Bianchi", workingTickets: 1 },
-    ],
-    pendingInvitations: [
-        { id: 1, email: "paolo@acme.com", role: "agent" },
-        { id: 2, email: "giulia@acme.com", role: "user" },
-    ],
-    recentFaqs: [
-        { id: 1, title: "Come reset la password?" },
-        { id: 2, title: "Come aprire un ticket?" },
-        { id: 3, title: "Dove trovo le fatture?" },
-    ]
-}
-
 function Dashboard() {
     const [stats, setStats] = useState({
         openTickets: 0,
         workingTickets: 0,
         closedTicketsToday: 0,
         withoutAnswerTickets: 0
-    })
+    });
+
+    const [ details, setDetails ] = useState<AdminDashboardDetails>({
+        attentionTickets: [],
+        agents: [],
+        pendingInvitations: [],
+        recentFaqs: []
+    });
 
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const response = await statsApi()
-                setStats(response.data)
+                const [ statsRes, detailsRes] = await Promise.all([
+                    statsApi(),
+                    detailsApi()
+                ]);
+                setStats(statsRes.data);
+                setDetails(detailsRes.data)
             } catch (error) {
                 console.error(error)
             }
         }
         fetchStats()
-    }, [])
+    }, []);
 
     return (
         <div className="p-6">
@@ -102,7 +92,7 @@ function Dashboard() {
                 <div className="bg-white border border-gray-200 rounded-xl p-5">
                     <h3 className="text-sm font-medium text-gray-700 mb-3">Richiede attenzione</h3>
                     <div className="flex flex-col gap-2">
-                        {fakeDetails.attentionTickets.map(ticket => (
+                        {details.attentionTickets.map(ticket => (
                             <div key={ticket.id} className="flex items-center gap-2">
                                 <span className={`w-2 h-2 rounded-full flex-shrink-0 ${
                                     ticket.priority === "high" ? "bg-red-500" :
@@ -119,11 +109,11 @@ function Dashboard() {
                 <div className="bg-white border border-gray-200 rounded-xl p-5">
                     <h3 className="text-sm font-medium text-gray-700 mb-3">Agenti con carico</h3>
                     <div className="flex flex-col gap-2">
-                        {fakeDetails.agents.map(agent => (
+                        {details.agents.map(agent => (
                             <div key={agent.id} className="flex items-center justify-between">
                                 <span className="text-sm text-gray-600">{agent.name}</span>
                                 <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{ background: "#EEEDFE", color: "#3C3489" }}>
-                                    {agent.workingTickets} ticket
+                                    {agent.assignee_tickets_count} ticket
                                 </span>
                             </div>
                         ))}
@@ -134,8 +124,8 @@ function Dashboard() {
                 <div className="bg-white border border-gray-200 rounded-xl p-5">
                     <h3 className="text-sm font-medium text-gray-700 mb-3">Inviti pendenti</h3>
                     <div className="flex flex-col gap-2">
-                        {fakeDetails.pendingInvitations.map(inv => (
-                            <div key={inv.id} className="flex items-center justify-between">
+                        {details.pendingInvitations.map(inv => (
+                            <div key={inv.email} className="flex items-center justify-between">
                                 <span className="text-sm text-gray-600">{inv.email}</span>
                                 <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{ background: "#FAEEDA", color: "#633806" }}>
                                     {inv.role}
@@ -149,10 +139,10 @@ function Dashboard() {
                 <div className="bg-white border border-gray-200 rounded-xl p-5">
                     <h3 className="text-sm font-medium text-gray-700 mb-3">FAQ recenti</h3>
                     <div className="flex flex-col gap-2">
-                        {fakeDetails.recentFaqs.map(faq => (
+                        {details.recentFaqs.map(faq => (
                             <div key={faq.id} className="flex items-center gap-2">
                                 <span className="text-gray-300 text-xs">—</span>
-                                <span className="text-sm text-gray-600">{faq.title}</span>
+                                <span className="text-sm text-gray-600">{faq.question}</span>
                             </div>
                         ))}
                     </div>
