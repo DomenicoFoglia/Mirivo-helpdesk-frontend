@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { closedTicketsApi, agentTicketsApi, availableTicketsApi } from "../../api/agentDashboard";
-import type { Ticket } from "../../types";
+import { useEffect, useState } from "react"
+import { closedTicketsApi, agentTicketsApi, availableTicketsApi } from "../../api/agentDashboard"
+import type { Ticket } from "../../types"
+import useAuthStore from "../../store/authStore"
 
 function Sparkline({ bars, color }: { bars: number[]; color: string }) {
     return (
@@ -19,15 +20,16 @@ function Sparkline({ bars, color }: { bars: number[]; color: string }) {
 function Dashboard() {
     const [closedTickets, setClosedTickets] = useState({
         closedTicketsToday: 0,
-        closedTicketsWeek: []
+        closedTicketsWeek: [] as number[]
     });
-    const [ assignedTickets, setAssignedTickets] = useState<Ticket[]>([]);
-    const [ availableTickets, setAvailableTickets] = useState<Ticket[]>([]);
+    const [assignedTickets, setAssignedTickets] = useState<Ticket[]>([]);
+    const [availableTickets, setAvailableTickets] = useState<Ticket[]>([]);
 
+    const user = useAuthStore(state => state.user)
 
     useEffect(() => {
         const fetchStats = async () => {
-            try{
+            try {
                 const [closedTicketsRes, assignedTicketsRes, availableTicketsRes] = await Promise.all([
                     closedTicketsApi(),
                     agentTicketsApi(),
@@ -36,7 +38,7 @@ function Dashboard() {
                 setClosedTickets(closedTicketsRes.data);
                 setAssignedTickets(assignedTicketsRes.data.data);
                 setAvailableTickets(availableTicketsRes.data.tickets);
-            }catch(err){
+            } catch (err) {
                 console.error(err);
             }
         }
@@ -44,29 +46,47 @@ function Dashboard() {
     }, []);
 
     return (
-        <div className="p-6">
-            <div className="grid grid-cols-4 gap-3">
+        <div className="p-6 flex flex-col gap-4">
 
-                <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-2">
+            {/* Titolo */}
+            <div>
+                <h1 className="text-xl font-medium text-gray-800">Benvenuto, {user?.name}</h1>
+                <p className="text-sm text-gray-500">
+                    {user?.company?.name}
+                    {user?.level && (
+                        <span className="ml-2 text-xs font-medium px-2 py-0.5 rounded-full" style={{ background: "#EEEDFE", color: "#3C3489" }}>
+                            Livello {user.level}
+                        </span>
+                    )}
+                </p>
+            </div>
+
+            {/* Metrica in cima a piena larghezza */}
+            <div className="bg-white border border-gray-200 rounded-xl p-5 flex items-center justify-between">
+                <div className="flex flex-col gap-2">
                     <span className="text-xs font-medium text-gray-500 tracking-wide">Ticket chiusi oggi</span>
                     <span className="text-3xl font-medium" style={{ color: "#BA7517" }}>{closedTickets.closedTicketsToday}</span>
+                </div>
+                <div className="w-32">
                     <Sparkline bars={closedTickets.closedTicketsWeek} color="#EF9F27" />
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 mt-3">
+            {/* Card dettaglio */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+
                 {/* I miei ticket */}
                 <div className="bg-white border border-gray-200 rounded-xl p-5">
-                    <h3 className="text-sm font-medium text-gray-700 mb-3">I miei Ticket</h3>
+                    <h3 className="text-sm font-medium text-gray-700 mb-3">I miei ticket</h3>
                     <div className="flex flex-col gap-2">
                         {assignedTickets.map(ticket => (
                             <div key={ticket.id} className="flex items-center justify-between">
-                                <span className="text-sm text-gray-600">{ticket.title}</span>
-                                <span 
-                                    className="text-xs font-medium px-2 py-0.5 rounded-full" 
-                                    style={ ticket.status === 'working'
-                                        ? {background: "#EEEDFE", color: "#3C3489"}
-                                        : {background: "#FAEEDA", color: "#633806"}
+                                <span className="text-sm text-gray-600 truncate">{ticket.title}</span>
+                                <span
+                                    className="text-xs font-medium px-2 py-0.5 rounded-full ml-2 flex-shrink-0"
+                                    style={ticket.status === 'working'
+                                        ? { background: "#EEEDFE", color: "#3C3489" }
+                                        : { background: "#FAEEDA", color: "#633806" }
                                     }
                                 >
                                     {ticket.status}
@@ -76,18 +96,20 @@ function Dashboard() {
                     </div>
                 </div>
 
-                {/* Ticekt disponibili */}
+                {/* Ticket disponibili */}
                 <div className="bg-white border border-gray-200 rounded-xl p-5">
                     <h3 className="text-sm font-medium text-gray-700 mb-3">Ticket disponibili</h3>
                     <div className="flex flex-col gap-2">
                         {availableTickets.map(ticket => (
                             <div key={ticket.id} className="flex items-center justify-between">
-                                <span className="text-sm text-gray-600">{ticket.title}</span>
+                                <span className="text-sm text-gray-600 truncate">{ticket.title}</span>
                             </div>
                         ))}
                     </div>
                 </div>
+
             </div>
+
         </div>
     )
 }
