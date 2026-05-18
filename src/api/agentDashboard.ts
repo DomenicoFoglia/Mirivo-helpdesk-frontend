@@ -5,9 +5,9 @@ export const closedTicketsApi = async () => {
 }
 
 export const agentTicketsApi = async () =>{
-    return api.get('agent/tickets');
+    return api.get('agent/tickets', { params: { per_page: 5 } });
 }
 
 export const availableTicketsApi = async () => {
-    return api.get('agent/tickets/available');
+    return api.get('agent/tickets/available', { params: { per_page: 5 } });
 }

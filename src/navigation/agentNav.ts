@@ -6,10 +6,10 @@ export const agentNavItems: NavItem[] = [
     { type: 'item', icon: LayoutDashboard, text: 'Panoramica', path: '/agent/dashboard' },
     { type: 'item', icon: Ticket, text: 'I miei ticket', path: '/agent/tickets', badge: 3 },
     { type: 'item', icon: Inbox, text: 'Ticket disponibili', path: '/agent/tickets/available', badge: 1 },
-    { type: 'item', icon: ArrowUpCircle, text: 'Ticket scalati', path: '/agent/tickets/escalated', badge: 2 },
+    { type: 'item', icon: ArrowUpCircle, text: 'Ticket scalati', path: '/agent/tickets/escalated', badge: 2, requiredLevel: 2 },
     { type: 'divider' },
     { type: 'label', text: 'Configurazione' },
-    { type: 'item', icon: MessageSquare, text: 'FAQ', path: '/agent/faqs' },
+    { type: 'item', icon: MessageSquare, text: 'FAQ', path: '/agent/faqs', requiredLevel: 2 },
     { type: 'divider' },
     { type: 'item', icon: UserCircle, text: 'Profilo', path: '/agent/profile' },
 ]

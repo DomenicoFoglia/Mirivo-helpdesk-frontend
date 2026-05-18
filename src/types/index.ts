@@ -88,7 +88,7 @@ export type PendingInvitation = Pick<Invitation, 'email' | 'role' | 'created_at'
 export type NavItem =
     | { type: 'label'; text: string }
     | { type: 'divider' }
-    | { type: 'item'; text: string; icon: LucideIcon; path: string; badge?: number; children?: { text: string; path: string }[] }
+    | { type: 'item'; text: string; icon: LucideIcon; path: string; badge?: number; children?: { text: string; path: string }[]; requiredLevel?: 2 }
 
 // L'interfaccia con i 4 tipi creati sopra, serve per gestire gli array che arrivano dal backend
 // dal metodo details() 

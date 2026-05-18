@@ -62,3 +62,15 @@
         display: flex;
     }
 }
+
+.topbar-user-section .lang-switcher {
+    position: static;
+    top: auto;
+    right: auto;
+    z-index: auto;
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    padding: 0;
+}

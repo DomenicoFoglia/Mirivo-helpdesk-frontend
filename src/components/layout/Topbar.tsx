@@ -14,6 +14,7 @@ function Topbar({onHamburgerClick}: {onHamburgerClick: () => void}){
     // const { t } = useTranslation();
 
     const handleLogout = async () => {
+        console.log('handleLogout chiamato')
         try {
             await api.post('/auth/logout');
         } catch (error) {
@@ -37,7 +38,7 @@ function Topbar({onHamburgerClick}: {onHamburgerClick: () => void}){
                 >
                     {user?.name} {user?.surname}
                 </span>
-                <button onClick={handleLogout} className="logout-link">
+                <button type="button" onClick={handleLogout} className="logout-link">
                     Logout
                 </button>
             </div>

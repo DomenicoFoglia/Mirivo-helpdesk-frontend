@@ -37,7 +37,7 @@ function Dashboard() {
                 ]);
                 setClosedTickets(closedTicketsRes.data);
                 setAssignedTickets(assignedTicketsRes.data.data);
-                setAvailableTickets(availableTicketsRes.data.tickets);
+                setAvailableTickets(availableTicketsRes.data.data);
             } catch (err) {
                 console.error(err);
             }
