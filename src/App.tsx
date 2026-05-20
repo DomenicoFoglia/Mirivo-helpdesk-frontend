@@ -13,6 +13,7 @@ import { agentNavItems } from './navigation/agentNav'
 import { userNavItems } from './navigation/userNav'
 import useAuthStore from './store/authStore'
 import { getMeApi } from './api/user'
+import UserTicket from './pages/user/UserTicket'
 
 function App() {
   const token = useAuthStore((state) => state.token)
@@ -38,6 +39,7 @@ function App() {
         <Route element={<RoleRoute allowedRole="user" />}>
           <Route element= {<AppShell navItems={userNavItems} />}>
             <Route path="/user/dashboard" element={<UserDashboard />} />
+            <Route path="/user/ticket/:id" element={<UserTicket />} />
           </Route>
         </Route>
 

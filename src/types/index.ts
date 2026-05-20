@@ -46,6 +46,15 @@ export interface Ticket {
     created_at: string
     updated_at: string
     closed_at: string | null
+    assignee?: {
+        id: number
+        name: string
+        surname: string
+    }
+    category?: {
+        id: number
+        name: string
+    }
 }
 
 export type AttentionTicket = Pick<Ticket, 'id'| 'title' | 'priority' | 'updated_at' >
