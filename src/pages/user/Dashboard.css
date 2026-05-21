@@ -1,0 +1,62 @@
+/* Titolo */
+.user-dashboard-title {
+    color: var(--text-primary);
+}
+
+.user-dashboard-company {
+    color: var(--text-muted);
+}
+
+/* Card lista ticket */
+.ticket-list-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.ticket-list-title {
+    color: var(--text-primary);
+}
+
+.ticket-list-header {
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-hint);
+}
+
+.ticket-list-divider {
+    border-color: var(--border-color);
+}
+
+/* Riga ticket */
+.ticket-row {
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 0;
+    transition: background 0.15s;
+}
+
+.ticket-row:hover {
+    background: var(--bg-tertiary);
+}
+
+/* Badge status */
+.status-badge-working {
+    background: #EEEDFE;
+    color: #3C3489;
+}
+
+.status-badge-closed {
+    background: #F1EFE8;
+    color: #444441;
+}
+
+.status-badge-open {
+    background: #FAEEDA;
+    color: #633806;
+}
+
+.ticket-empty {
+    color: var(--text-hint);
+}
