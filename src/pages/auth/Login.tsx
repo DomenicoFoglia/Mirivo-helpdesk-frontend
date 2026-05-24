@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import '../../styles/login.css';
 import { Mail, Lock } from 'lucide-react';
 import LanguageSwitcher from '../../components/LanguageSwitcher';
+import toast from "react-hot-toast";
 
 function Login() {
     const { t } = useTranslation();
@@ -21,8 +22,8 @@ function Login() {
             const { token, user } = response.data;
             login(user, token);
             navigate(`/${user.role}/dashboard`);
-        } catch(error) {
-            console.error(error);
+        } catch{
+            toast.error('Credenziali sbagliate');
         }
     }
 

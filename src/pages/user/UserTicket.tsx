@@ -4,6 +4,7 @@ import type { Ticket, Message } from "../../types";
 import { userTicketApi } from "../../api/tickets";
 import { userTicketGetMessagesApi, userTicketPostMessageApi } from "../../api/messages";
 import "./UserTicket.css";
+import toast from "react-hot-toast"
 
 
 function UserTicket(){
@@ -27,8 +28,8 @@ function UserTicket(){
                 ]);
                 setTicket(ticketRes.data);
                 setMessages(messagesRes.data.data);
-            }catch(err){
-                console.error(err);
+            }catch {
+                toast.error('Impossibile caricare il ticket', { id: 'ticket-load-error' });
             }
         }
         fetchData()
@@ -43,8 +44,9 @@ function UserTicket(){
             const response = await userTicketPostMessageApi(id, newMessage);
             setMessages(prev => [...prev, response.data]);
             setNewMessage("");
-        }catch(err){
-            console.error(err);
+            toast.success('Messaggio inviato');
+        }catch {
+            toast.error('Errore nell\'invio del messaggio');
         }finally{
             setSending(false);
         }

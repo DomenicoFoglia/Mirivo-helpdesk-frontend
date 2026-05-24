@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import { statsApi, detailsApi } from "../../api/adminDashboard"
 import type { AdminDashboardDetails } from "../../types"
 import useAuthStore from "../../store/authStore"
+import { Link } from "react-router-dom"
+import toast from "react-hot-toast"
 
 function Dashboard() {
     const [stats, setStats] = useState({
@@ -38,6 +40,7 @@ function Dashboard() {
 
     return (
         <div className="p-6 flex flex-col gap-4">
+            <button onClick={() => toast.error("Funziona!")}>Clicca</button>
 
             {/* Titolo */}
             <div>
@@ -92,14 +95,14 @@ function Dashboard() {
                         <h3 className="text-sm font-medium text-gray-700 mb-3">Richiede attenzione</h3>
                         <div className="flex flex-col gap-2">
                             {details.attentionTickets.map(ticket => (
-                                <div key={ticket.id} className="flex items-center gap-2">
+                                <Link to={`/admin/ticket/${ticket.id}`} key={ticket.id} className="flex items-center gap-2 hover:bg-gray-50 transition-colors rounded px-1 -mx-1">
                                     <span className={`w-2 h-2 rounded-full flex-shrink-0 ${
                                         ticket.priority === "high" ? "bg-red-500" :
                                         ticket.priority === "medium" ? "bg-yellow-400" :
                                         "bg-gray-300"
                                     }`} />
                                     <span className="text-sm text-gray-600 truncate">{ticket.title}</span>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     </div>

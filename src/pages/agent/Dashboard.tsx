@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { closedTicketsApi, agentTicketsApi, availableTicketsApi } from "../../api/agentDashboard"
 import type { Ticket } from "../../types"
 import useAuthStore from "../../store/authStore"
+import { Link } from "react-router-dom"
 
 function Sparkline({ bars, color }: { bars: number[]; color: string }) {
     return (
@@ -80,7 +81,7 @@ function Dashboard() {
                     <h3 className="text-sm font-medium text-gray-700 mb-3">I miei ticket</h3>
                     <div className="flex flex-col gap-2">
                         {assignedTickets.map(ticket => (
-                            <div key={ticket.id} className="flex items-center justify-between">
+                            <Link to={`/agent/ticket/${ticket.id}`} key={ticket.id} className="flex items-center justify-between hover:bg-gray-50 transition-colors rounded px-1 -mx-1">
                                 <span className="text-sm text-gray-600 truncate">{ticket.title}</span>
                                 <span
                                     className="text-xs font-medium px-2 py-0.5 rounded-full ml-2 flex-shrink-0"
@@ -91,7 +92,7 @@ function Dashboard() {
                                 >
                                     {ticket.status}
                                 </span>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </div>
@@ -101,9 +102,9 @@ function Dashboard() {
                     <h3 className="text-sm font-medium text-gray-700 mb-3">Ticket disponibili</h3>
                     <div className="flex flex-col gap-2">
                         {availableTickets.map(ticket => (
-                            <div key={ticket.id} className="flex items-center justify-between">
+                            <Link to={`/agent/ticket/${ticket.id}`} key={ticket.id} className="flex items-center justify-between hover:bg-gray-50 transition-colors rounded px-1 -mx-1">
                                 <span className="text-sm text-gray-600 truncate">{ticket.title}</span>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </div>

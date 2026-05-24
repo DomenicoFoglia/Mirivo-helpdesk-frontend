@@ -277,3 +277,17 @@
 .lang-switcher:hover {
 	background: rgb(255 255 255 / 16%);
 }
+
+
+/* errori inline nei form */
+.field-error {
+	display: block;
+	color: #f87171;
+	font-size: 12px;
+	padding: 4px 20px 0;
+	text-align: left;
+}
+
+/* .login-form-grid .field-error {
+	grid-column: 1 / -1;
+} */

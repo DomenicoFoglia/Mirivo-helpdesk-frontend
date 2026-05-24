@@ -14,6 +14,9 @@ import { userNavItems } from './navigation/userNav'
 import useAuthStore from './store/authStore'
 import { getMeApi } from './api/user'
 import UserTicket from './pages/user/UserTicket'
+import AgentTicket from './pages/agent/AgentTicket'
+import AdminTicket from './pages/admin/AdminTicket'
+import { Toaster } from "react-hot-toast"
 
 function App() {
   const token = useAuthStore((state) => state.token)
@@ -29,37 +32,46 @@ function App() {
   }, [])
 
   return (
-    <Routes>
-      {/* Pubbliche */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+    <>
+      {/* Toaster */}
+      <Toaster position="top-right" />
 
-      {/* Protette */}
-      <Route element={<ProtectedRoute />}>
-        <Route element={<RoleRoute allowedRole="user" />}>
-          <Route element= {<AppShell navItems={userNavItems} />}>
-            <Route path="/user/dashboard" element={<UserDashboard />} />
-            <Route path="/user/ticket/:id" element={<UserTicket />} />
+      {/* Rotte */}
+      <Routes>
+        {/* Pubbliche */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Protette */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<RoleRoute allowedRole="user" />}>
+            <Route element= {<AppShell navItems={userNavItems} />}>
+              <Route path="/user/dashboard" element={<UserDashboard />} />
+              <Route path="/user/ticket/:id" element={<UserTicket />} />
+            </Route>
+          </Route>
+
+          <Route element={<RoleRoute allowedRole="agent" />}>
+            <Route element={<AppShell navItems={agentNavItems} />}>
+              <Route path="/agent/dashboard" element={<AgentDashboard />} />
+              <Route path="/agent/ticket/:id" element={<AgentTicket />} />
+            </Route>
+          </Route>
+
+          <Route element={<RoleRoute allowedRole="admin" />}>
+            <Route element={<AppShell navItems={adminNavItems} />}>
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/ticket/:id" element={<AdminTicket />} />
+            </Route>
           </Route>
         </Route>
 
-        <Route element={<RoleRoute allowedRole="agent" />}>
-          <Route element={<AppShell navItems={agentNavItems} />}>
-            <Route path="/agent/dashboard" element={<AgentDashboard />} />
-          </Route>
-        </Route>
-
-        <Route element={<RoleRoute allowedRole="admin" />}>
-          <Route element={<AppShell navItems={adminNavItems} />}>
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          </Route>
-        </Route>
-      </Route>
-
-      {/* Fallback */}
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="*" element={<h1>404 - Pagina non trovata</h1>} />
-    </Routes>
+        {/* Fallback */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<h1>404 - Pagina non trovata</h1>} />
+      </Routes>
+    </>
+    
   )
 }
 
