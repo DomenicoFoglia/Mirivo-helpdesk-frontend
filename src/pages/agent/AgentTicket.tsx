@@ -26,7 +26,7 @@ function AgentTicket(){
     // Stato per escalation e loading duante la chiamata API
     const [ escalating, setEscalating] = useState(false);
     // Utente da store Zustand
-    const user = useAuthStore(state => state.user)
+    const user = useAuthStore(state => state.user);
     
     const { id } = useParams();
 

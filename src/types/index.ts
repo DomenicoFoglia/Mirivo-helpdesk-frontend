@@ -38,7 +38,7 @@ export interface Ticket {
     id: number
     title: string
     status: 'open' | 'working' | 'escalated' | 'closed'
-    priority: 'low' | 'medium' | 'high'
+    priority: 'low' | 'medium' | 'high' | null
     user_id: number
     assignee_id: number | null
     company_id: number
@@ -54,6 +54,11 @@ export interface Ticket {
     category?: {
         id: number
         name: string
+    }
+    user?: {
+        id: number
+        name: string
+        surname: string
     }
 }
 

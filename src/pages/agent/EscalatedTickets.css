@@ -1,0 +1,187 @@
+.escalated-tickets {
+    padding: 24px;
+    height: calc(100vh - 48px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* HEADER */
+.escalated-tickets-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+}
+
+.escalated-tickets-header h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.escalated-tickets-header span {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* STATI VUOTO E CARICAMENTO */
+.escalated-tickets-empty,
+.escalated-tickets-loading {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 40px 0;
+    text-align: center;
+}
+
+/* TABELLA */
+.escalated-tickets-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    font-size: 0.9rem;
+}
+
+.escalated-tickets-table thead {
+    background: var(--bg-tertiary);
+}
+
+.escalated-tickets-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.escalated-tickets-table td {
+    padding: 14px 16px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.escalated-tickets-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.escalated-tickets-table tbody tr:hover {
+    background: var(--bg-tertiary);
+    transition: background 0.15s;
+}
+
+/* COLONNA TITOLO */
+.ticket-title-cell {
+    cursor: pointer;
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ticket-title-cell:hover {
+    color: var(--text-muted);
+    transition: color 0.15s;
+}
+
+/* BADGE PRIORITA' */
+.priority-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 9999px;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+.priority-high   { background: #dc2626; color: #fff; }
+.priority-medium { background: #d97706; color: #fff; }
+.priority-low    { background: #6b7280; color: #fff; }
+
+/* COLONNA AZIONI */
+.assign-btn {
+    padding: 6px 14px;
+    background: var(--accent);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+}
+
+.assign-btn:hover:not(:disabled) {
+    opacity: 0.85;
+}
+
+.assign-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* RESPONSIVE */
+@media (max-width: 767px) {
+    .escalated-tickets {
+        padding: 16px;
+    }
+
+    .escalated-tickets-table thead {
+        display: none;
+    }
+
+    .escalated-tickets-table,
+    .escalated-tickets-table tbody,
+    .escalated-tickets-table tr,
+    .escalated-tickets-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .escalated-tickets-table tbody tr {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 12px;
+    }
+
+    .escalated-tickets-table tbody tr:hover {
+        background: var(--bg-secondary);
+    }
+
+    .escalated-tickets-table td {
+        border: none;
+        padding: 6px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .escalated-tickets-table td::before {
+        content: attr(data-label);
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        min-width: 100px;
+        flex-shrink: 0;
+    }
+
+    .ticket-title-cell {
+        max-width: 100%;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+    }
+}
+

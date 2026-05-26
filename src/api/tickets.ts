@@ -23,3 +23,11 @@ export const adminTicketApi = async (id: string) => {
 export const escalateTicket = async (id: string, role: 'admin' | 'agent') =>{
     return api.put(`/${role}/tickets/${id}/escalate`);
 }
+
+export const escalatedAvailableApi = async (role: 'admin' | 'agent') => {
+    return api.get(`/${role}/tickets/escalated/available`);
+}
+
+export const assignEscalatedApi = async (id: string) => {
+    return api.post(`/agent/tickets/${id}/assignEscalated`);
+}

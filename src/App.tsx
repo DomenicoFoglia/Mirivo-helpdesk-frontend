@@ -17,6 +17,7 @@ import UserTicket from './pages/user/UserTicket'
 import AgentTicket from './pages/agent/AgentTicket'
 import AdminTicket from './pages/admin/AdminTicket'
 import { Toaster } from "react-hot-toast"
+import EscalatedTickets from './pages/agent/EscalatedTickets'
 
 function App() {
   const token = useAuthStore((state) => state.token)
@@ -55,6 +56,7 @@ function App() {
             <Route element={<AppShell navItems={agentNavItems} />}>
               <Route path="/agent/dashboard" element={<AgentDashboard />} />
               <Route path="/agent/ticket/:id" element={<AgentTicket />} />
+              <Route path="/agent/tickets/escalated" element={<EscalatedTickets />} />
             </Route>
           </Route>
 
@@ -62,6 +64,7 @@ function App() {
             <Route element={<AppShell navItems={adminNavItems} />}>
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/admin/ticket/:id" element={<AdminTicket />} />
+              <Route path="/admin/tickets/escalated" element={<EscalatedTickets />} />
             </Route>
           </Route>
         </Route>
