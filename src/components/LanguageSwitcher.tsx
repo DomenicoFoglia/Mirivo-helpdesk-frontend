@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next'
 
-function LanguageSwitcher() {
+type Variant = 'dark' | 'light'
+
+function LanguageSwitcher({ variant = 'dark' }: { variant?: Variant }) {
     const { i18n } = useTranslation()
 
     const toggleLanguage = () => {
@@ -9,7 +11,10 @@ function LanguageSwitcher() {
     }
 
     return (
-        <button className="lang-switcher" onClick={toggleLanguage}>
+        <button
+            className={`lang-switcher lang-switcher-${variant}`}
+            onClick={toggleLanguage}
+        >
             {i18n.language === 'it' ? '🇮🇹 IT' : '🇬🇧 EN'}
         </button>
     )

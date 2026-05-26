@@ -18,6 +18,7 @@ import AgentTicket from './pages/agent/AgentTicket'
 import AdminTicket from './pages/admin/AdminTicket'
 import { Toaster } from "react-hot-toast"
 import EscalatedTickets from './pages/agent/EscalatedTickets'
+import NotFound from './pages/NotFound'
 
 function App() {
   const token = useAuthStore((state) => state.token)
@@ -71,7 +72,7 @@ function App() {
 
         {/* Fallback */}
         <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route path="*" element={<h1>404 - Pagina non trovata</h1>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
     

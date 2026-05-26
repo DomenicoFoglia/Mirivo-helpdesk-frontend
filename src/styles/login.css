@@ -259,22 +259,27 @@
 
 
 /* language switcher */
+/* language switcher - stile comune a tutte le varianti */
 .lang-switcher {
+	border-radius: 20px;
+	padding: 6px 14px;
+	font-size: 13px;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+/* variante dark - per fondi colorati (Login, Register) */
+.lang-switcher-dark {
 	position: absolute;
 	top: 20px;
 	right: 20px;
 	background: rgb(255 255 255 / 8%);
 	border: 1px solid rgb(255 255 255 / 12%);
 	color: #f9f9f9;
-	border-radius: 20px;
-	padding: 6px 14px;
-	font-size: 13px;
-	cursor: pointer;
-	transition: background 0.3s;
 	z-index: 10;
 }
 
-.lang-switcher:hover {
+.lang-switcher-dark:hover {
 	background: rgb(255 255 255 / 16%);
 }
 

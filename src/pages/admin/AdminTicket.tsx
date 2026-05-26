@@ -1,10 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import useAuthStore from "../../store/authStore";
 import type { Ticket, Message } from "../../types";
 import { adminTicketApi, changeStatus, escalateTicket, changePriority } from "../../api/tickets";
 import { ticketGetMessagesApi, ticketPostMessageApi } from "../../api/messages";
 import "../agent/AgentTicket.css";
-import toast from "react-hot-toast"
+import toast from "react-hot-toast";
+import Spinner from "../../components/Spinner";
+import NotFound from "../NotFound";
+import { WifiOff } from "lucide-react";
+import axios from "axios";
 
 
 function AdminTicket(){
@@ -24,6 +29,13 @@ function AdminTicket(){
     const [ changingPriority, setChangingPriority] = useState(false);
     // Stato per escalation e loading duante la chiamata API
     const [ escalating, setEscalating] = useState(false);
+    // Stati spinner e notfound
+    const [ loading, setLoading ] = useState(true);
+    const [ notFound, setNotFound ] = useState(false);
+    // Stato per gestire errori(inline)
+    const [ error, setError ] = useState(false);
+    // Utente da store Zustand
+    const user = useAuthStore(state => state.user);
     
     const { id } = useParams();
 
@@ -40,8 +52,15 @@ function AdminTicket(){
                 setMessages(messagesRes.data.data);
                 setStatus(ticketRes.data.status);
                 setPriority(ticketRes.data.priority);
-            }catch {
-                toast.error('Impossibile caricare il ticket', { id: 'ticket-load-error' });
+            }catch (err) {
+                if (axios.isAxiosError(err) && err.response?.status === 404) {
+                    setNotFound(true);
+                } else {
+                    setError(true);
+                    toast.error('Impossibile caricare il ticket', { id: 'ticket-load-error' });
+                }
+            } finally {
+                setLoading(false);
             }
         }
         fetchData()
@@ -114,6 +133,15 @@ function AdminTicket(){
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 
+    if (loading) return <Spinner />;
+    if (notFound) return <NotFound />;
+    if (error) return (
+    <div className="ticket-error">
+        <WifiOff size={48} className="ticket-error-icon" />
+        <h2 className="ticket-error-title">Impossibile caricare il ticket</h2>
+        <p className="ticket-error-message">Verifica la connessione e riprova.</p>
+    </div>
+    );
     if (!ticket) return null;
 
     return (
@@ -144,22 +172,34 @@ function AdminTicket(){
                 {/* MESSAGGI */}
                 <div className="ticket-messages">
                     {messages.filter(m => m.type === activeTab).length ? (
-                        messages.filter(m => m.type === activeTab).map(msg => (
-                            <div
-                                key={msg.id}
-                                className={`message-bubble ${msg.user_id === ticket.assignee_id ? "message-own" : "message-user"}`}
-                            >
-                                <div className="message-meta">
-                                    <span className="message-author">
-                                        {msg.user_id === ticket.assignee_id ? "Tu" : "Utente"}
-                                    </span>
-                                    <span className="message-time">
-                                        {new Date(msg.created_at).toLocaleString('it-IT')}
-                                    </span>
+                        messages.filter(m => m.type === activeTab).map(msg => {
+                            const isMine = msg.user_id === user?.id;
+                            const roleLabel = msg.user?.role === 'admin' ? 'Admin'
+                                : msg.user?.role === 'agent' ? 'Agente'
+                                : 'Utente';
+
+                            return (
+                                <div
+                                    key={msg.id}
+                                    className={`message-bubble ${isMine ? "message-own" : "message-user"}`}
+                                >
+                                    <div className="message-meta">
+                                        {!isMine && msg.user && (
+                                            <span className="message-author">
+                                                {msg.user.name} {msg.user.surname} · {roleLabel}
+                                            </span>
+                                        )}
+                                        {msg.type === 'private' && (
+                                            <span className="message-badge-private">Nota interna</span>
+                                        )}
+                                        <span className="message-time">
+                                            {new Date(msg.created_at).toLocaleString('it-IT')}
+                                        </span>
+                                    </div>
+                                    <p className="message-body">{msg.body}</p>
                                 </div>
-                                <p className="message-body">{msg.body}</p>
-                            </div>
-                        ))
+                            );
+                        })
                     ) : (
                         <p className="ticket-empty">Nessun messaggio</p>
                     )}

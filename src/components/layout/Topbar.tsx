@@ -31,7 +31,7 @@ function Topbar({onHamburgerClick}: {onHamburgerClick: () => void}){
             <span className="wordmark">mir<em>i</em>vo</span>
             <span className="ws-chip">{user?.company.name}</span>
             <div className="topbar-user-section">
-                <LanguageSwitcher />
+                <LanguageSwitcher variant="light" />
                 <span 
                     onClick={() => navigate('/settings')} 
                     style={{ cursor: 'pointer' }}

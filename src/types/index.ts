@@ -71,6 +71,12 @@ export interface Message {
     ticket_id: number
     user_id: number
     created_at: string
+    user?: {
+        id: number
+        name: string
+        surname: string
+        role: 'admin' | 'agent' | 'user'
+    }
 }
 
 export interface Faq {

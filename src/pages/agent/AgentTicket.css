@@ -343,3 +343,51 @@
         display: none;
     }
 }
+
+
+.ticket-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    min-height: calc(100vh - 48px);
+    padding: 24px;
+    gap: 16px;
+}
+
+.ticket-error-icon {
+    color: var(--text-secondary);
+}
+
+.ticket-error-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.ticket-error-message {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: 400px;
+}
+
+.message-author {
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.message-badge-private {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(245, 158, 11, 0.15);
+    color: #b45309;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
