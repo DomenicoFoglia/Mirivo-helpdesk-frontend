@@ -19,6 +19,7 @@ import AdminTicket from './pages/admin/AdminTicket'
 import { Toaster } from "react-hot-toast"
 import EscalatedTickets from './pages/agent/EscalatedTickets'
 import NotFound from './pages/NotFound'
+import Profile from './pages/shared/Profile'
 
 function App() {
   const token = useAuthStore((state) => state.token)
@@ -50,6 +51,7 @@ function App() {
             <Route element= {<AppShell navItems={userNavItems} />}>
               <Route path="/user/dashboard" element={<UserDashboard />} />
               <Route path="/user/ticket/:id" element={<UserTicket />} />
+              <Route path="/user/profile" element={<Profile />} />
             </Route>
           </Route>
 
@@ -58,6 +60,7 @@ function App() {
               <Route path="/agent/dashboard" element={<AgentDashboard />} />
               <Route path="/agent/ticket/:id" element={<AgentTicket />} />
               <Route path="/agent/tickets/escalated" element={<EscalatedTickets />} />
+              <Route path="/agent/profile" element={<Profile />} />
             </Route>
           </Route>
 
@@ -66,6 +69,7 @@ function App() {
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/admin/ticket/:id" element={<AdminTicket />} />
               <Route path="/admin/tickets/escalated" element={<EscalatedTickets />} />
+              <Route path="/admin/profile" element={<Profile />} />
             </Route>
           </Route>
         </Route>

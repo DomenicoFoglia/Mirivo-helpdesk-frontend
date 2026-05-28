@@ -18,5 +18,5 @@ export const adminNavItems: NavItem[] = [
     { type: 'item', icon: FolderTree, text: 'Categorie', path: '/admin/categories' },
     { type: 'item', icon: MessageSquare, text: 'FAQ', path: '/admin/faqs' },
     { type: 'divider' },
-    { type: 'item', icon: UserCircle, text: 'Impostazioni', path: '/admin/settings' },
+    { type: 'item', icon: UserCircle, text: 'Impostazioni', path: '/admin/profile' },
 ]

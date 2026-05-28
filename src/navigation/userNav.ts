@@ -10,5 +10,5 @@ export const userNavItems: NavItem[] = [
     { type: 'label', text: 'Configurazione' },
     { type: 'item', icon: MessageSquare, text: 'FAQ', path: '/user/faqs' },
     { type: 'divider' },
-    { type: 'item', icon: UserCircle, text: 'Profilo', path: '/user/profile' },
+    { type: 'item', icon: UserCircle, text: 'Impostazioni', path: '/user/profile' },
 ]

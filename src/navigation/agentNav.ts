@@ -11,5 +11,5 @@ export const agentNavItems: NavItem[] = [
     { type: 'label', text: 'Configurazione' },
     { type: 'item', icon: MessageSquare, text: 'FAQ', path: '/agent/faqs', requiredLevel: 2 },
     { type: 'divider' },
-    { type: 'item', icon: UserCircle, text: 'Profilo', path: '/agent/profile' },
+    { type: 'item', icon: UserCircle, text: 'Impostazioni', path: '/agent/profile' },
 ]

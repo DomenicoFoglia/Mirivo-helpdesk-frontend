@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom'
 import useAuthStore from '../store/authStore'
+import Spinner from './Spinner'
 
 interface RoleRouteProps {
     allowedRole: 'admin' | 'agent' | 'user'
@@ -10,7 +11,7 @@ function RoleRoute({ allowedRole }: RoleRouteProps) {
 
     // Token presente ma utente non ancora caricato: aspetta
     if (token && !user) {
-        return null
+        return <Spinner />
     }
 
     if (!user) {
