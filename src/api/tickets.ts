@@ -1,4 +1,5 @@
 import api from "./axios"
+import type { TicketListParams, Paginated, Ticket } from "../types";
 
 export const userTicketApi = async (id: string) =>{
     return api.get(`/tickets/${id}`);
@@ -6,6 +7,16 @@ export const userTicketApi = async (id: string) =>{
 
 export const agentTicketApi = async (id: string) => {
     return api.get(`/agent/tickets/${id}`);
+}
+
+export const ticketListApi = async (role: 'admin' | 'agent', params: TicketListParams = {} ) => {
+    const res = await api.get<Paginated<Ticket>>(`/${role}/tickets`, { params });
+    return res.data;
+}
+
+export const categoriesApi = async () => {
+    const res = await api.get('/admin/categories');
+    return res.data;
 }
 
 export const changeStatus = async (id: string, status: string, role: 'admin' | 'agent') => {
@@ -31,3 +42,4 @@ export const escalatedAvailableApi = async (role: 'admin' | 'agent') => {
 export const assignEscalatedApi = async (id: string) => {
     return api.post(`/agent/tickets/${id}/assignEscalated`);
 }
+

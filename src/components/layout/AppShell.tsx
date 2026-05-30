@@ -3,14 +3,40 @@ import './AppShell.css'
 import Topbar from './Topbar'
 import Sidebar from './Sidebar'
 import type { NavItem } from "../../types"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import useAuthStore from "../../store/authStore"
+import { ticketListApi } from "../../api/tickets"
+
 
 function AppShell({ navItems }: { navItems: NavItem[] }) {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const user = useAuthStore(state => state.user);
+    // Stato per il conteggio dei ticket in stato: open
+    const [openCount, setOpenCount] = useState(0);
+
+
+    useEffect(() => {
+        if(user?.role !== 'admin') return;
+
+        const fetchOpenTickets = async () =>{
+            try{
+                const res = await ticketListApi('admin', { status: 'open'});
+                setOpenCount(res.total);
+            }catch{
+                
+            }
+        } 
+        fetchOpenTickets();   
+    },[user?.role])
 
     const filteredNavItems =navItems.filter( item => item.type !== 'item' || !item.requiredLevel || user?.level === item.requiredLevel);
+
+    const navWithBadge = filteredNavItems.map(item => {
+        if (item.type === 'item' && item.path === '/admin/tickets') {
+            return { ...item, badge: openCount };
+        }
+        return item;
+    });
 
     return (
         <div className="shell">
@@ -19,7 +45,7 @@ function AppShell({ navItems }: { navItems: NavItem[] }) {
             <Topbar onHamburgerClick={() => setDrawerOpen(prev => !prev)} />
             {drawerOpen && <div className="drawer-backdrop" onClick={() => setDrawerOpen(false)} />}
             <div className="body">
-                <Sidebar navItems={filteredNavItems} drawerOpen={drawerOpen} onClose={() => setDrawerOpen(false)}/>
+                <Sidebar navItems={navWithBadge} drawerOpen={drawerOpen} onClose={() => setDrawerOpen(false)}/>
                 <main><Outlet /></main>
             </div>
         </div>

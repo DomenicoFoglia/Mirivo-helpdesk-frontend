@@ -62,6 +62,22 @@ export interface Ticket {
     }
 }
 
+export interface TicketListParams{
+    status?: string;
+    priority?: string;
+    category_id?: number;
+    search?: string;
+    page?: number;
+}
+
+export interface Paginated<T> {
+    data: T[];
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+}
+
 export type AttentionTicket = Pick<Ticket, 'id'| 'title' | 'priority' | 'updated_at' >
 
 export interface Message {
