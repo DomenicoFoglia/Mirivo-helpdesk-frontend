@@ -14,8 +14,8 @@ export const ticketListApi = async (role: 'admin' | 'agent', params: TicketListP
     return res.data;
 }
 
-export const categoriesApi = async () => {
-    const res = await api.get('/admin/categories');
+export const categoriesApi = async (role: 'admin' | 'agent') => {
+    const res = await api.get(`/${role}/categories`);
     return res.data;
 }
 

@@ -4,11 +4,11 @@ import { categoriesApi, ticketListApi } from "../../api/tickets";
 import { useNavigate } from "react-router-dom";
 import type { Ticket } from "../../types";
 import toast from "react-hot-toast";
-import './TicketList.css';
+import '../admin/AdminTicketList.css';
 import type { Category } from "../../types";
 
 
-function TicketList(){
+function AgentTicketList(){
     const [ tickets, setTickets ] = useState<Ticket[]>([]);
     const [ loading, setLoading ] = useState(true);
     const navigate = useNavigate();
@@ -28,7 +28,7 @@ function TicketList(){
         const fetchTickets = async () => {
             setLoading(true);
             try{
-                const res = await ticketListApi('admin', {
+                const res = await ticketListApi('agent', {
                     status: status || undefined,
                     priority: priority || undefined,
                     category_id: categoryId ? Number(categoryId) : undefined,
@@ -55,7 +55,6 @@ function TicketList(){
                 const res = await categoriesApi();
                 setCategories(res.data);
             }catch{
-
             }
         }
         fetchCategories();
@@ -66,7 +65,7 @@ function TicketList(){
 
     return (
         <div className="ticket-list-page">
-            <h1>Tutti i ticket</h1>
+            <h1>I miei ticket</h1>
 
             <div className="ticket-list-filters">
                 <select value={status} onChange={e => { setStatus(e.target.value); setCurrentPage(1); }}>
@@ -106,6 +105,8 @@ function TicketList(){
                 <button onClick={() => { setSearch(searchInput); setCurrentPage(1); }}>Cerca</button>
             </div>
 
+            {!loading && <p className="ticket-list-count">{total} ticket trovati</p>}
+
             {loading ? (
                 <Spinner />
             ) :tickets.length === 0 ? (
@@ -119,14 +120,13 @@ function TicketList(){
                             <th>Stato</th>
                             <th>Priorità</th>
                             <th>Categoria</th>
-                            <th>Assegnatario</th>
                             <th>Data</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             tickets.map(ticket => (
-                                <tr key={ticket.id} onClick={() => navigate(`/admin/ticket/${ticket.id}`)}>
+                                <tr key={ticket.id} onClick={() => navigate(`/agent/ticket/${ticket.id}`)}>
                                     <td data-label="Titolo">{ticket.title}</td>
                                     <td data-label="Stato">
                                         <span className={`status-badge status-${ticket.status}`}>
@@ -140,7 +140,6 @@ function TicketList(){
                                         }
                                     </td>
                                     <td data-label="Categoria">{ticket.category?.name}</td>
-                                    <td data-label="Assegnatario">{ticket.assignee ? `${ticket.assignee.name} ${ticket.assignee.surname}` : "Non assegnato"}</td>
                                     <td data-label="Data">{new Date(ticket.created_at).toLocaleString('it-IT')}</td>
                                 </tr>
                             ))
@@ -171,4 +170,4 @@ function TicketList(){
 
 }
 
-export default TicketList;
+export default AgentTicketList;

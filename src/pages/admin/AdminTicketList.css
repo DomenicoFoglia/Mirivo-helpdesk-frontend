@@ -249,3 +249,9 @@
     opacity: 0.4;
     cursor: not-allowed;
 }
+
+.ticket-list-count {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
