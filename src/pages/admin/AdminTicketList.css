@@ -255,3 +255,19 @@
     color: var(--text-secondary);
     margin-bottom: 12px;
 }
+
+.take-button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+
+.take-button:hover {
+    opacity: 0.85;
+}

@@ -22,6 +22,7 @@ import NotFound from './pages/NotFound'
 import Profile from './pages/shared/Profile'
 import AdminTicketList from './pages/admin/AdminTicketList'
 import AgentTicketList from './pages/agent/AgentTicketList'
+import AvailableTickets from './pages/agent/AvailableTickets'
 
 function App() {
   const token = useAuthStore((state) => state.token)
@@ -63,6 +64,7 @@ function App() {
               <Route path="/agent/tickets" element={<AgentTicketList />} />
               <Route path="/agent/ticket/:id" element={<AgentTicket />} />
               <Route path="/agent/tickets/escalated" element={<EscalatedTickets />} />
+              <Route path="/agent/tickets/available" element={<AvailableTickets />} />
               <Route path="/agent/profile" element={<Profile />} />
             </Route>
           </Route>

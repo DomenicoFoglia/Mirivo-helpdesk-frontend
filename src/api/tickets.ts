@@ -14,6 +14,11 @@ export const ticketListApi = async (role: 'admin' | 'agent', params: TicketListP
     return res.data;
 }
 
+export const availableTicketListApi = async (params: TicketListParams = {}) => {
+    const res = await api.get<Paginated<Ticket>>('/agent/tickets/available',  {params});
+    return res.data;
+}
+
 export const categoriesApi = async (role: 'admin' | 'agent') => {
     const res = await api.get(`/${role}/categories`);
     return res.data;
@@ -43,3 +48,6 @@ export const assignEscalatedApi = async (id: string) => {
     return api.post(`/agent/tickets/${id}/assignEscalated`);
 }
 
+export const assignTicketApi = async (id: number) => {
+    return api.post(`/agent/tickets/${id}/assign`);
+};

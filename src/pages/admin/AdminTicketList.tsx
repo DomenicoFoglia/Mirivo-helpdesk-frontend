@@ -52,7 +52,7 @@ function AdminTicketList(){
     useEffect(() => {
         const fetchCategories = async () => {
             try{
-                const res = await categoriesApi();
+                const res = await categoriesApi('admin');
                 setCategories(res.data);
             }catch{
 

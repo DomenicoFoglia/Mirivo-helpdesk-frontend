@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Spinner from "../../components/Spinner";
-import { categoriesApi, ticketListApi } from "../../api/tickets";
+import { availableTicketListApi, categoriesApi, assignTicketApi } from "../../api/tickets";
 import { useNavigate } from "react-router-dom";
 import type { Ticket } from "../../types";
 import toast from "react-hot-toast";
@@ -8,12 +8,11 @@ import '../admin/AdminTicketList.css';
 import type { Category } from "../../types";
 
 
-function AgentTicketList(){
+function AvailableTickets(){
     const [ tickets, setTickets ] = useState<Ticket[]>([]);
     const [ loading, setLoading ] = useState(true);
     const navigate = useNavigate();
     // Stati per la ricerca
-    const [status, setStatus] = useState('');
     const [priority, setPriority] = useState('');
     const [categoryId, setCategoryId] = useState('');
     const [search, setSearch] = useState('');          // valore applicato (triggera il fetch)
@@ -28,8 +27,7 @@ function AgentTicketList(){
         const fetchTickets = async () => {
             setLoading(true);
             try{
-                const res = await ticketListApi('agent', {
-                    status: status || undefined,
+                const res = await availableTicketListApi( {
                     priority: priority || undefined,
                     category_id: categoryId ? Number(categoryId) : undefined,
                     search: search || undefined,
@@ -46,7 +44,7 @@ function AgentTicketList(){
             }
         }
         fetchTickets();
-    }, [status, priority, categoryId, search, currentPage]) //Quando queste cambiano useEffect riparte
+    }, [ priority, categoryId, search, currentPage]) //Quando queste cambiano useEffect riparte
 
 
     useEffect(() => {
@@ -60,21 +58,24 @@ function AgentTicketList(){
         fetchCategories();
     }, []);
 
+    const handleTake = async (ticketId: number) => {
+        try {
+            await assignTicketApi(ticketId);
+            toast.success('Ticket preso in carico');
+            setTickets(prev => prev.filter(t => t.id !== ticketId));
+        } catch {
+            toast.error('Impossibile prendere il ticket');
+        }
+    };
+
 
     // if (loading) return <Spinner />;
 
     return (
         <div className="ticket-list-page">
-            <h1>I miei ticket</h1>
+            <h1>Ticket Disponibili</h1>
 
             <div className="ticket-list-filters">
-                <select value={status} onChange={e => { setStatus(e.target.value); setCurrentPage(1); }}>
-                    <option value="">Tutti gli stati</option>
-                    <option value="open">Aperto</option>
-                    <option value="working">In lavorazione</option>
-                    <option value="escalated">Escalato</option>
-                    <option value="closed">Chiuso</option>
-                </select>
 
                 <select value={priority} onChange={e => { setPriority(e.target.value); setCurrentPage(1); }}>
                     <option value="">Tutte le priorità</option>
@@ -117,10 +118,11 @@ function AgentTicketList(){
                     <thead>
                         <tr>
                             <th>Titolo</th>
-                            <th>Stato</th>
+                            <th>Autore</th>
                             <th>Priorità</th>
                             <th>Categoria</th>
                             <th>Data</th>
+                            <th>Azioni</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -128,10 +130,8 @@ function AgentTicketList(){
                             tickets.map(ticket => (
                                 <tr key={ticket.id} onClick={() => navigate(`/agent/ticket/${ticket.id}`)}>
                                     <td data-label="Titolo">{ticket.title}</td>
-                                    <td data-label="Stato">
-                                        <span className={`status-badge status-${ticket.status}`}>
-                                            {ticket.status}
-                                        </span>
+                                    <td data-label="Autore">
+                                        {ticket.user ? `${ticket.user.name} ${ticket.user.surname}` : '-'}
                                     </td>
                                     <td data-label="Priorità">
                                         {ticket.priority 
@@ -141,6 +141,11 @@ function AgentTicketList(){
                                     </td>
                                     <td data-label="Categoria">{ticket.category?.name}</td>
                                     <td data-label="Data">{new Date(ticket.created_at).toLocaleString('it-IT')}</td>
+                                    <td data-label="Azioni">
+                                        <button className="take-button" onClick={(e) => { e.stopPropagation(); handleTake(ticket.id); }}>
+                                            Prendi in carico
+                                        </button>
+                                    </td>
                                 </tr>
                             ))
                         }
@@ -170,4 +175,4 @@ function AgentTicketList(){
 
 }
 
-export default AgentTicketList;
+export default AvailableTickets;
