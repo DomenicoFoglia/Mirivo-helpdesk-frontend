@@ -23,6 +23,7 @@ import Profile from './pages/shared/Profile'
 import AdminTicketList from './pages/admin/AdminTicketList'
 import AgentTicketList from './pages/agent/AgentTicketList'
 import AvailableTickets from './pages/agent/AvailableTickets'
+import AdminCategory from './pages/admin/AdminCategory'
 
 function App() {
   const token = useAuthStore((state) => state.token)
@@ -76,6 +77,7 @@ function App() {
               <Route path="/admin/ticket/:id" element={<AdminTicket />} />
               <Route path="/admin/tickets/escalated" element={<EscalatedTickets />} />
               <Route path="/admin/profile" element={<Profile />} />
+              <Route path="admin/categories" element={<AdminCategory />} />
             </Route>
           </Route>
         </Route>

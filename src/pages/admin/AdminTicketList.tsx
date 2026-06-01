@@ -53,7 +53,7 @@ function AdminTicketList(){
         const fetchCategories = async () => {
             try{
                 const res = await categoriesApi('admin');
-                setCategories(res.data);
+                setCategories(res);
             }catch{
 
             }
