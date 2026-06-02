@@ -12,7 +12,7 @@ export const adminNavItems: NavItem[] = [
         { text: 'Tecnici', path: '/admin/users/agents' },
         { text: 'Utenti', path: '/admin/users/end-users' },
     ]},
-    { type: 'item', icon: Mail, text: 'Inviti', path: '/admin/invitations', badge: 2 },
+    { type: 'item', icon: Mail, text: 'Inviti', path: '/admin/invitations' },
     { type: 'divider' },
     { type: 'label', text: 'Configurazione' },
     { type: 'item', icon: FolderTree, text: 'Categorie', path: '/admin/categories' },

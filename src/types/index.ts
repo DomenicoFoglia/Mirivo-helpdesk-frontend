@@ -111,12 +111,9 @@ export interface Invitation {
     id: number
     email: string
     role: 'agent' | 'user'
-    token: string
     accepted_at: string | null
     expires_at: string
     created_at: string
-    updated_at: string
-    company_id: number
 }
 
 export type PendingInvitation = Pick<Invitation, 'email' | 'role' | 'created_at' >
