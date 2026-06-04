@@ -1,4 +1,10 @@
 import type { LucideIcon } from "lucide-react"
+// Risposta di login e registrazione (usabile anche da loginApi/registerApi)
+export interface AuthResponse{
+    message?: string
+    user: User
+    token: string
+}
 
 export interface Company {
     id: number
@@ -114,6 +120,21 @@ export interface Invitation {
     accepted_at: string | null
     expires_at: string
     created_at: string
+}
+
+// Dati pubblici di un invito (GET /auth/invite/{token})
+export interface InvitationInfo {
+    email: string
+    role: Invitation['role']
+    company: Pick<Company, 'id' | 'name'>
+}
+
+// Dati richiesti per finalizzare la registrazione tramite invito
+export interface RegisterByInviteData{
+    name: string
+    surname: string
+    password: string
+    password_confirmation: string
 }
 
 export type PendingInvitation = Pick<Invitation, 'email' | 'role' | 'created_at' >

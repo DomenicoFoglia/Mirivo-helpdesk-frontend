@@ -26,6 +26,21 @@
         "email_placeholder": "name@example.com",
         "name_placeholder": "Your name",
         "password_placeholder": "Minimum 12 characters",
-        "password_hint": "At least 12 characters, one uppercase, one number and one symbol"
+        "password_hint": "At least 12 characters, one uppercase, one number and one symbol",
+        "invite_loading": "Loading invitation...",
+        "invite_not_found_title": "Invalid invitation",
+        "invite_not_found_desc": "The invitation link may have expired or already been used.",
+        "invite_back_to_login": "Back to login",
+        "invite_welcome_title": "You've been invited!",
+        "invite_intro": "You've been invited as <strong>{{role}}</strong> in <strong>{{company}}</strong> at <strong>{{email}}</strong>.",
+        "invite_complete_subtitle": "Complete your registration to get started",
+        "invite_already_logged_title": "You're already signed in",
+        "invite_already_logged_desc": "You're currently signed in as <strong>{{name}}</strong>. To accept this invitation you need to sign out first.",
+        "invite_continue_btn": "Sign out and accept",
+        "invite_cancel_btn": "Cancel",
+        "invite_submit_btn": "Complete registration",
+        "role_user": "User",
+        "role_agent": "Agent",
+        "role_admin": "Administrator"
     }
 }

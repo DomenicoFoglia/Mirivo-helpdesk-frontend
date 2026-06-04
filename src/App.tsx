@@ -25,6 +25,8 @@ import AgentTicketList from './pages/agent/AgentTicketList'
 import AvailableTickets from './pages/agent/AvailableTickets'
 import AdminCategory from './pages/admin/AdminCategory'
 import Invitations from './pages/admin/Invitations'
+import InviteRegister from './pages/auth/InviteRegister'
+
 
 function App() {
   const token = useAuthStore((state) => state.token)
@@ -49,6 +51,7 @@ function App() {
         {/* Pubbliche */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/invite/:token" element={<InviteRegister />} />
 
         {/* Protette */}
         <Route element={<ProtectedRoute />}>

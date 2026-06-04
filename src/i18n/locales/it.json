@@ -26,6 +26,21 @@
         "email_placeholder": "nome@esempio.com",
         "name_placeholder": "Il tuo nome",
         "password_placeholder": "Minimo 12 caratteri",
-        "password_hint": "Almeno 12 caratteri, una maiuscola, un numero e un simbolo"
+        "password_hint": "Almeno 12 caratteri, una maiuscola, un numero e un simbolo",
+        "invite_loading": "Caricamento invito in corso...",
+        "invite_not_found_title": "Invito non valido",
+        "invite_not_found_desc": "Il link di invito potrebbe essere scaduto o già stato utilizzato.",
+        "invite_back_to_login": "Torna al login",
+        "invite_welcome_title": "Sei stato invitato!",
+        "invite_intro": "Sei stato invitato come <strong>{{role}}</strong> in <strong>{{company}}</strong> all'indirizzo <strong>{{email}}</strong>.",
+        "invite_complete_subtitle": "Completa la registrazione per accedere",
+        "invite_already_logged_title": "Sei già autenticato",
+        "invite_already_logged_desc": "Risulti collegato come <strong>{{name}}</strong>. Per accettare questo invito devi prima uscire dalla sessione corrente.",
+        "invite_continue_btn": "Esci e accetta invito",
+        "invite_cancel_btn": "Annulla",
+        "invite_submit_btn": "Completa registrazione",
+        "role_user": "Utente",
+        "role_agent": "Agente",
+        "role_admin": "Amministratore"
     }
 }
