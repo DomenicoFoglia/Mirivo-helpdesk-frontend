@@ -51,7 +51,7 @@ function AvailableTickets(){
         const fetchCategories = async () => {
             try{
                 const res = await categoriesApi('agent');
-                setCategories(res.data);
+                setCategories(res);
             }catch{
             }
         }

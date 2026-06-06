@@ -22,6 +22,7 @@ export interface User {
     company_id: number
     theme: string
     company: Company
+    created_at?: string
 }
 
 export type AgentSummary = Pick<User, 'id' | 'name' | 'level' > & {

@@ -26,6 +26,9 @@ import AvailableTickets from './pages/agent/AvailableTickets'
 import AdminCategory from './pages/admin/AdminCategory'
 import Invitations from './pages/admin/Invitations'
 import InviteRegister from './pages/auth/InviteRegister'
+import AdminAgents from './pages/admin/AdminAgents';
+import AdminEndUsers from './pages/admin/AdminEndUsers';
+import AdminUserDetail from './pages/admin/AdminUserDetail';
 
 
 function App() {
@@ -83,6 +86,9 @@ function App() {
               <Route path="/admin/profile" element={<Profile />} />
               <Route path="admin/categories" element={<AdminCategory />} />
               <Route path="/admin/invitations" element={<Invitations />} />
+              <Route path="/admin/users/agents" element={<AdminAgents />} />
+              <Route path="/admin/users/end-users" element={<AdminEndUsers />} />
+              <Route path="/admin/users/:userId" element={<AdminUserDetail />} />
             </Route>
           </Route>
         </Route>
