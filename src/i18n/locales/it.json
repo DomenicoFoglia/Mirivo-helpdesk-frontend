@@ -41,6 +41,18 @@
         "invite_submit_btn": "Completa registrazione",
         "role_user": "Utente",
         "role_agent": "Agente",
-        "role_admin": "Amministratore"
+        "role_admin": "Amministratore",
+        "reset_title": "Reimposta password",
+        "reset_subtitle": "Stai reimpostando la password per",
+        "new_password_placeholder": "Nuova password",
+        "confirm_password_placeholder_short": "Conferma password",
+        "reset_btn": "Conferma",
+        "reset_saving": "Salvataggio...",
+        "reset_success": "Password aggiornata con successo",
+        "reset_passwords_not_match": "Le password non coincidono",
+        "reset_invalid_token": "Token non valido o scaduto",
+        "reset_link_invalid_title": "Link non valido",
+        "reset_link_invalid_desc": "Il link di reset password non e' valido o e' incompleto.",
+        "back_to_login": "Torna al login"
     }
 }

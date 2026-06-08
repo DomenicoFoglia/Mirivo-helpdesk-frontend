@@ -19,3 +19,15 @@ export const registerByInviteApi = async (token:string, data: RegisterByInviteDa
     const res = await api.post<AuthResponse>(`/auth/invite/${token}`, data);
     return res.data;
 }
+
+export interface ResetPasswordData{
+    token: string
+    email: string
+    password: string
+    password_confirmation: string
+}
+
+export const resetPasswordApi = async (data: ResetPasswordData) => {
+    const res = await api.post('auth/reset-password', data);
+    return res.data;
+}

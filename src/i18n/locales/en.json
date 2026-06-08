@@ -41,6 +41,18 @@
         "invite_submit_btn": "Complete registration",
         "role_user": "User",
         "role_agent": "Agent",
-        "role_admin": "Administrator"
+        "role_admin": "Administrator",
+        "reset_title": "Reset password",
+        "reset_subtitle": "You are resetting the password for",
+        "new_password_placeholder": "New password",
+        "confirm_password_placeholder_short": "Confirm password",
+        "reset_btn": "Confirm",
+        "reset_saving": "Saving...",
+        "reset_success": "Password updated successfully",
+        "reset_passwords_not_match": "Passwords do not match",
+        "reset_invalid_token": "Invalid or expired token",
+        "reset_link_invalid_title": "Invalid link",
+        "reset_link_invalid_desc": "The password reset link is invalid or incomplete.",
+        "back_to_login": "Back to login"
     }
 }

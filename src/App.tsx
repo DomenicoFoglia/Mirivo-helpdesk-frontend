@@ -29,6 +29,7 @@ import InviteRegister from './pages/auth/InviteRegister'
 import AdminAgents from './pages/admin/AdminAgents';
 import AdminEndUsers from './pages/admin/AdminEndUsers';
 import AdminUserDetail from './pages/admin/AdminUserDetail';
+import ResetPassword from './pages/auth/ResetPassword'
 
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/invite/:token" element={<InviteRegister />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* Protette */}
         <Route element={<ProtectedRoute />}>

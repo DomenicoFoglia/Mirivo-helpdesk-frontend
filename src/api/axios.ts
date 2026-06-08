@@ -1,6 +1,7 @@
 import axios from 'axios'
 import toast from "react-hot-toast"
 import useAuthStore from '../store/authStore'
+import i18next from 'i18next' 
 
 const api = axios.create({
     baseURL: 'http://127.0.0.1:8000/api',
@@ -11,6 +12,7 @@ api.interceptors.request.use((config) => {
     if (token) {
         config.headers.Authorization = `Bearer ${token}`
     }
+    config.headers['Accept-Language'] = i18next.language
     return config
 })
 
