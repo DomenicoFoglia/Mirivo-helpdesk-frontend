@@ -7,6 +7,7 @@ import '../../styles/login.css';
 import { Mail, Lock } from 'lucide-react';
 import LanguageSwitcher from '../../components/LanguageSwitcher';
 import toast from "react-hot-toast";
+import { handleRateLimit } from "../../utility/handleRateLimit";
 
 function Login() {
     const { t } = useTranslation();
@@ -22,7 +23,8 @@ function Login() {
             const { token, user } = response.data;
             login(user, token);
             navigate(`/${user.role}/dashboard`);
-        } catch{
+        } catch (error) {
+            if (handleRateLimit(error)) return;
             toast.error('Credenziali sbagliate');
         }
     }
@@ -59,7 +61,13 @@ function Login() {
                         />
                     </div>
                     <button type="submit">{t('auth.login_btn')}</button>
-                    <a href="#" className="login-forgot">{t('auth.forgot_password')}</a>
+                    <div className="login-forgot">
+                        <Link
+                            to="/forgot-password"
+                        >
+                            {t('auth.forgot_password')}
+                        </Link>
+                    </div>
                 </form>
                 <footer className="login-footer">
                     {t('auth.no_account')} <Link to="/register">{t('auth.sign_up')}</Link>

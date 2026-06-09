@@ -30,6 +30,7 @@ import AdminAgents from './pages/admin/AdminAgents';
 import AdminEndUsers from './pages/admin/AdminEndUsers';
 import AdminUserDetail from './pages/admin/AdminUserDetail';
 import ResetPassword from './pages/auth/ResetPassword'
+import ForgotPassword from './pages/auth/ForgetPassword'
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/invite/:token" element={<InviteRegister />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
         {/* Protette */}
         <Route element={<ProtectedRoute />}>

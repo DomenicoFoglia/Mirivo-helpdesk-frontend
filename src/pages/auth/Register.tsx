@@ -8,6 +8,8 @@ import { Mail, Lock, User, LockKeyhole, Building2, ImageIcon } from 'lucide-reac
 import LanguageSwitcher from '../../components/LanguageSwitcher';
 import toast from "react-hot-toast";
 import axios from "axios";
+import { handleRateLimit } from "../../utility/handleRateLimit.ts";
+
 
 function Register() {
     const { t } = useTranslation();
@@ -33,15 +35,18 @@ function Register() {
             login(user, token);
             navigate(`/${user.role}/dashboard`);
         } catch(error) {
-            toast.error('Registrazione fallita');
+            if (handleRateLimit(error)) return;
+            
             if (axios.isAxiosError(error) && error.response?.status === 422) {
-                const raw: Record<string, string[]> = error.response.data.errors
+                const raw: Record<string, string[]> = error.response.data.errors;
                 const formatted = Object.fromEntries(
-                    Object.entries(raw).map(([key, messages]) => [key, messages[0]])
-                )
-                setErrors(formatted)
+                Object.entries(raw).map(([key, messages]) => [key, messages[0]])
+                );
+                setErrors(formatted);
+                return;
             }
-
+            
+            toast.error('Registrazione fallita');
         }
     }
 

@@ -7,6 +7,7 @@ import LanguageSwitcher from '../../components/LanguageSwitcher';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import '../../styles/login.css';
+import { handleRateLimit } from '../../utility/handleRateLimit';
 
 function ResetPassword() {
     const { t } = useTranslation();
@@ -70,6 +71,7 @@ function ResetPassword() {
             toast.success(t('auth.reset_success'));
             navigate('/login');
         } catch (error) {
+            if (handleRateLimit(error)) return;
             // Stesso pattern di Register: errori di validazione finiscono in `errors`,
             // il resto (token scaduto, errore server) come toast
             if (axios.isAxiosError(error) && error.response?.status === 422) {

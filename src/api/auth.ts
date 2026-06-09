@@ -31,3 +31,7 @@ export const resetPasswordApi = async (data: ResetPasswordData) => {
     const res = await api.post('auth/reset-password', data);
     return res.data;
 }
+
+export const forgotPasswordApi = async (email: string) => {
+    await api.post('auth/forgot-password', {email});
+}

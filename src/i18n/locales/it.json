@@ -53,6 +53,12 @@
         "reset_invalid_token": "Token non valido o scaduto",
         "reset_link_invalid_title": "Link non valido",
         "reset_link_invalid_desc": "Il link di reset password non e' valido o e' incompleto.",
-        "back_to_login": "Torna al login"
+        "back_to_login": "Torna al login",
+        "forgot_title": "Password dimenticata?",
+        "forgot_subtitle": "Inserisci la tua email per ricevere un link di reset",
+        "forgot_btn": "Invia link di reset",
+        "forgot_sending": "Invio in corso...",
+        "forgot_check_email_title": "Controlla la tua posta",
+        "forgot_check_email_desc": "Se l'indirizzo email è registrato, riceverai a breve un messaggio con il link per reimpostare la password."
     }
 }

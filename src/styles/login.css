@@ -296,3 +296,29 @@
 /* .login-form-grid .field-error {
 	grid-column: 1 / -1;
 } */
+
+
+/* SOTTOTITOLO (forgot password, reset password) */
+
+.login-subtitle {
+    font-size: 14px;
+    color: rgb(255 255 255 / 60%);
+    margin: -16px 0 28px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* ICONA DI SUCCESSO (forgot password "check inbox") */
+
+.forgot-icon-success {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: rgb(99 153 34 / 14%);
+    border: 2px solid rgb(99 153 34 / 30%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #639922;
+}

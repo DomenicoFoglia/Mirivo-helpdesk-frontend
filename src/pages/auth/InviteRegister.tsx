@@ -8,6 +8,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { getInvitationByTokenApi, registerByInviteApi } from '../../api/auth'
 import { User, Lock, LockKeyhole } from 'lucide-react'
+import { handleRateLimit } from '../../utility/handleRateLimit'
 
 type PageState =
     | { kind: 'loading' }
@@ -131,17 +132,23 @@ function InviteRegister() {
             login(response.user, response.token)
             navigate(`/${response.user.role}/dashboard`, { replace: true })
         } catch (error) {
-            toast.error(t('auth.invite_submit_btn') + ': errore')
-            if (axios.isAxiosError(error) && error.response?.status === 422) {
-                const raw: Record<string, string[]> = error.response.data.errors
-                const formatted = Object.fromEntries(
-                    Object.entries(raw).map(([key, messages]) => [key, messages[0]])
-                )
-                setErrors(formatted)
-            }
+            if (handleRateLimit(error)) return;
+            
             if (axios.isAxiosError(error) && error.response?.status === 404) {
-                setPage({ kind: 'notFound' })
+                setPage({ kind: 'notFound' });
+                return;
             }
+            
+            if (axios.isAxiosError(error) && error.response?.status === 422) {
+                const raw: Record<string, string[]> = error.response.data.errors;
+                const formatted = Object.fromEntries(
+                Object.entries(raw).map(([key, messages]) => [key, messages[0]])
+                );
+                setErrors(formatted);
+                return;
+            }
+            
+            toast.error('Registrazione fallita');
         } finally {
             setIsSubmitting(false)
         }
