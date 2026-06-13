@@ -19,7 +19,7 @@ export const availableTicketListApi = async (params: TicketListParams = {}) => {
     return res.data;
 }
 
-export const categoriesApi = async (role: 'admin' | 'agent') => {
+export const categoriesApi = async (role: 'admin' | 'agent' | 'user') => {
     const res = await api.get(`/${role}/categories`);
     return res.data;
 }

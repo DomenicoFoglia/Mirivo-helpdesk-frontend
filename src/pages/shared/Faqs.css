@@ -1,0 +1,197 @@
+/* Container pagina */
+.faqs-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+/* Header */
+.faqs-header {
+    margin-bottom: 20px;
+}
+
+.faqs-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Filtri */
+.faqs-filters {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.faqs-search {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.faqs-search svg {
+    position: absolute;
+    left: 12px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.faqs-search input {
+    width: 100%;
+    padding: 10px 12px 10px 36px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.faqs-search input:focus {
+    border-color: var(--accent);
+}
+
+.faqs-filters select {
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    outline: none;
+    cursor: pointer;
+    min-width: 180px;
+    transition: border-color 0.2s;
+}
+
+.faqs-filters select:focus {
+    border-color: var(--accent);
+}
+
+/* Stato vuoto */
+.faqs-empty {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 32px 0;
+}
+
+/* Lista accordion */
+.faqs-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.faqs-item {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.faqs-item:has(.faqs-question-row:hover) {
+    border-color: var(--accent);
+}
+
+.faqs-item.is-open {
+    background: var(--bg-secondary);
+    border-color: var(--accent);
+}
+
+/* Riga cliccabile (button) */
+.faqs-question-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 12px;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.15s;
+    font-family: inherit;
+}
+
+/* .faqs-question-row:hover {
+    background: var(--bg-tertiary);
+} */
+
+.faqs-question-row svg {
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.faqs-question {
+    flex: 1;
+    font-weight: 500;
+}
+
+/* Badge categoria (10 colori) */
+.faqs-category {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.faqs-category-c0 { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.faqs-category-c1 { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.faqs-category-c2 { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+.faqs-category-c3 { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
+.faqs-category-c4 { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+.faqs-category-c5 { background: rgba(20, 184, 166, 0.15); color: #14b8a6; }
+.faqs-category-c6 { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.faqs-category-c7 { background: rgba(132, 204, 22, 0.15); color: #84cc16; }
+.faqs-category-c8 { background: rgba(99, 102, 241, 0.15); color: #6366f1; }
+.faqs-category-c9 { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+
+/* Risposta espansa */
+.faqs-answer {
+    padding: 8px 16px 18px 42px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+    border-top: 1px solid var(--border-color);
+    margin-top: 4px;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .faqs-container {
+        padding: 16px 12px;
+    }
+    
+    .faqs-filters {
+        flex-direction: column;
+    }
+    
+    .faqs-filters select {
+        min-width: 0;
+    }
+    
+    .faqs-question-row {
+        flex-wrap: wrap;
+    }
+    
+    .faqs-category {
+        margin-left: 30px;
+    }
+    
+    .faqs-answer {
+        padding-left: 30px;
+    }
+}

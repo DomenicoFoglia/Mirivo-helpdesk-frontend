@@ -1,5 +1,5 @@
 import api from "./axios"
-import type { Category, Paginated } from "../types"
+import type { Category } from "../types"
 
 export const categoryListApi = async () => {
     const res = await  api.get<Category[]>('/admin/categories');

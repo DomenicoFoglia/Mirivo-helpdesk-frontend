@@ -31,6 +31,8 @@ import AdminEndUsers from './pages/admin/AdminEndUsers';
 import AdminUserDetail from './pages/admin/AdminUserDetail';
 import ResetPassword from './pages/auth/ResetPassword'
 import ForgotPassword from './pages/auth/ForgetPassword'
+import AdminFaqs from './pages/admin/AdminFaqs'
+import Faqs from './pages/shared/Faqs'
 
 
 function App() {
@@ -67,6 +69,7 @@ function App() {
               <Route path="/user/dashboard" element={<UserDashboard />} />
               <Route path="/user/ticket/:id" element={<UserTicket />} />
               <Route path="/user/profile" element={<Profile />} />
+              <Route path="/user/faqs" element={<Faqs />} />
             </Route>
           </Route>
 
@@ -78,6 +81,9 @@ function App() {
               <Route path="/agent/tickets/escalated" element={<EscalatedTickets />} />
               <Route path="/agent/tickets/available" element={<AvailableTickets />} />
               <Route path="/agent/profile" element={<Profile />} />
+              <Route path="/agent/faqs" element={<Faqs />} />
+              {/* Riutilizziamo il componente di admin AdminFaqs */}
+              <Route path="/agent/faqs/manage" element={<AdminFaqs />} />
             </Route>
           </Route>
 
@@ -88,11 +94,12 @@ function App() {
               <Route path="/admin/ticket/:id" element={<AdminTicket />} />
               <Route path="/admin/tickets/escalated" element={<EscalatedTickets />} />
               <Route path="/admin/profile" element={<Profile />} />
-              <Route path="admin/categories" element={<AdminCategory />} />
+              <Route path="/admin/categories" element={<AdminCategory />} />
               <Route path="/admin/invitations" element={<Invitations />} />
               <Route path="/admin/users/agents" element={<AdminAgents />} />
               <Route path="/admin/users/end-users" element={<AdminEndUsers />} />
               <Route path="/admin/users/:userId" element={<AdminUserDetail />} />
+              <Route path="/admin/faqs" element={<AdminFaqs />} />
             </Route>
           </Route>
         </Route>

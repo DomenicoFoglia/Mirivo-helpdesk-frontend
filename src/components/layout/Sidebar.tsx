@@ -18,7 +18,7 @@ function Sidebar({ navItems, drawerOpen, onClose }: { navItems: NavItem[]; drawe
                     const Icon = item.icon
                     return (
                         <div key={index}>
-                            <NavLink to={item.path} className={({isActive}) => isActive ? "nav-item active" : "nav-item"} data-tooltip={item.text}>
+                            <NavLink to={item.path} end className={({isActive}) => isActive ? "nav-item active" : "nav-item"} data-tooltip={item.text}>
                                 <Icon size={18} />
                                 {item.text}
                                 {item.badge && <span className="badge-count">{item.badge}</span>}

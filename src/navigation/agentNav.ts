@@ -1,5 +1,5 @@
 import type { NavItem } from "../types"
-import { LayoutDashboard, Ticket, Inbox, ArrowUpCircle, MessageSquare, UserCircle } from "lucide-react"
+import { LayoutDashboard, Ticket, Inbox, ArrowUpCircle, MessageSquare, UserCircle, FileEdit } from "lucide-react"
 
 export const agentNavItems: NavItem[] = [
     { type: 'label', text: 'Workspace' },
@@ -9,7 +9,8 @@ export const agentNavItems: NavItem[] = [
     { type: 'item', icon: ArrowUpCircle, text: 'Ticket scalati', path: '/agent/tickets/escalated', badge: 2, requiredLevel: 2 },
     { type: 'divider' },
     { type: 'label', text: 'Configurazione' },
-    { type: 'item', icon: MessageSquare, text: 'FAQ', path: '/agent/faqs', requiredLevel: 2 },
+    { type: 'item', icon: MessageSquare, text: 'FAQ', path: '/agent/faqs'},
+    { type: 'item', icon: FileEdit, text: 'Gestisci FAQ', path: '/agent/faqs/manage', requiredLevel: 2 },
     { type: 'divider' },
     { type: 'item', icon: UserCircle, text: 'Impostazioni', path: '/agent/profile' },
 ]
