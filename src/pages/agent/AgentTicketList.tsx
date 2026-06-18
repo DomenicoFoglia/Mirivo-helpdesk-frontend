@@ -47,14 +47,14 @@ function AgentTicketList(){
         }
         fetchTickets();
     }, [status, priority, categoryId, search, currentPage]) //Quando queste cambiano useEffect riparte
-
-
+    
     useEffect(() => {
         const fetchCategories = async () => {
             try{
                 const res = await categoriesApi('agent');
-                setCategories(res.data);
+                setCategories(res);
             }catch{
+                
             }
         }
         fetchCategories();

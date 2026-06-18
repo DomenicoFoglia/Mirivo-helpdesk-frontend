@@ -1,0 +1,159 @@
+/* Stato collassato: button che sembra una input bar */
+.compose-collapsed {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  text-align: left;
+}
+
+.compose-collapsed:hover {
+  border-color: var(--accent);
+  background: var(--bg-tertiary);
+}
+
+/* Stato espanso: form completo */
+.compose-expanded {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.compose-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.compose-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.compose-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.compose-close:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+/* Campi */
+.compose-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.compose-field label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.compose-field input,
+.compose-field select,
+.compose-field textarea {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--text-primary);
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.compose-field input:focus,
+.compose-field select:focus,
+.compose-field textarea:focus {
+  border-color: var(--accent);
+}
+
+.compose-field input::placeholder,
+.compose-field textarea::placeholder {
+  color: var(--text-hint);
+}
+
+.compose-field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.field-error {
+  font-size: 12px;
+  color: #dc2626;
+  margin-top: 2px;
+}
+
+/* Azioni in fondo */
+.compose-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.compose-btn-secondary,
+.compose-btn-primary {
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  border: 1px solid transparent;
+}
+
+.compose-btn-secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: var(--border-color);
+}
+
+.compose-btn-secondary:hover:not(:disabled) {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.compose-btn-primary {
+  background: var(--accent);
+  color: white;
+}
+
+.compose-btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.compose-btn-primary:disabled,
+.compose-btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -4,6 +4,7 @@ import type { Ticket } from "../../types"
 import useAuthStore from "../../store/authStore"
 import { Link } from "react-router-dom"
 import "./Dashboard.css"
+import TicketCompose from './TicketCompose'
 
 function Dashboard() {
     const [userTickets, setUserTickets] = useState<Ticket[]>([]);
@@ -29,6 +30,11 @@ function Dashboard() {
             <div>
                 <h1 className="text-xl font-medium user-dashboard-title">Benvenuto, {user?.name}</h1>
                 <p className="text-sm user-dashboard-company">{user?.company?.name}</p>
+            </div>
+
+            {/* Compose nuovo ticket */}
+            <div className="max-w-2xl mx-auto w-full">
+                <TicketCompose />
             </div>
 
             {/* Lista ticket */}

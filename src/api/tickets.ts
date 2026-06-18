@@ -51,3 +51,25 @@ export const assignEscalatedApi = async (id: string) => {
 export const assignTicketApi = async (id: number) => {
     return api.post(`/agent/tickets/${id}/assign`);
 };
+
+interface userTicketListParams {
+    state?: 'open' | 'closed'
+    search?: string
+    page?: number
+}
+
+export const userTicketListApi = async (params?: userTicketListParams) => {
+    const response = await api.get('/tickets', {params});
+    return response.data;
+}
+
+export interface CreateTicketData {
+    title: string
+    category_id: number
+    message: string
+}
+
+export const userCreateTicketApi = async (data: CreateTicketData) => {
+    const response = await api.post('/tickets', data)
+    return response.data  // { message: string, ticket: Ticket }
+}

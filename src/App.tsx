@@ -33,6 +33,7 @@ import ResetPassword from './pages/auth/ResetPassword'
 import ForgotPassword from './pages/auth/ForgetPassword'
 import AdminFaqs from './pages/admin/AdminFaqs'
 import Faqs from './pages/shared/Faqs'
+import UserTickets from './pages/user/UserTickets'
 
 
 function App() {
@@ -70,6 +71,7 @@ function App() {
               <Route path="/user/ticket/:id" element={<UserTicket />} />
               <Route path="/user/profile" element={<Profile />} />
               <Route path="/user/faqs" element={<Faqs />} />
+              <Route path="/user/tickets" element={<UserTickets />} />
             </Route>
           </Route>
 
