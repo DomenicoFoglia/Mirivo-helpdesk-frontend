@@ -21,8 +21,8 @@ function EscalatedTickets (){
         const fetchData = async () => {
             setLoading(true);
             try{
-                const response = await escalatedAvailableApi(user?.role === 'admin' ? 'admin' : 'agent');
-                setTickets(response.data.data);
+                const data = await escalatedAvailableApi(user?.role === 'admin' ? 'admin' : 'agent');
+                setTickets(data.data);
             }catch{
                 toast.error('Errore nel recupero dei ticket dal server');
             }finally{

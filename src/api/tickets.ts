@@ -41,7 +41,8 @@ export const escalateTicket = async (id: string, role: 'admin' | 'agent') =>{
 }
 
 export const escalatedAvailableApi = async (role: 'admin' | 'agent') => {
-    return api.get(`/${role}/tickets/escalated/available`);
+    const res = await api.get<Paginated<Ticket>>(`/${role}/tickets/escalated/available`);
+    return res.data;
 }
 
 export const assignEscalatedApi = async (id: string) => {
