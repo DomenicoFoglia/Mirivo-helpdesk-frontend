@@ -100,6 +100,7 @@ export interface Message {
         surname: string
         role: 'admin' | 'agent' | 'user'
     }
+    attachments?: Attachment[]
 }
 
 export interface Faq {
@@ -156,4 +157,17 @@ export interface AdminDashboardDetails{
     agents: AgentSummary[]
     pendingInvitations: PendingInvitation[]
     recentFaqs: RecentFaq[]
+}
+
+export interface Attachment {
+    id: number;
+    message_id: number;
+    user_id: number;
+    filename: string;
+    original_filename: string;
+    path: string;
+    mime_type: string;
+    size: number;
+    created_at: string;
+    updated_at: string;
 }

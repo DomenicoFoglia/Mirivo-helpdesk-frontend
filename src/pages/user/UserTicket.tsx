@@ -10,6 +10,9 @@ import Spinner from "../../components/Spinner";
 import NotFound from "../NotFound";
 import axios from "axios";
 import { WifiOff } from "lucide-react"
+import AttachmentList from "../../components/AttachmentList";
+import { deleteAttachmentApi } from "../../api/attachments";
+import AttachmentPicker from "../../components/AttachmentPicker";
 
 
 function UserTicket(){
@@ -26,6 +29,8 @@ function UserTicket(){
     const [ error, setError ] = useState(false);
     // Utente da store Zustand
     const user = useAuthStore(state => state.user);
+    // aLLEGATI
+    const [ attachments, setAttachments ] = useState<File[]>([]);
 
     const { id } = useParams();
 
@@ -57,17 +62,33 @@ function UserTicket(){
 
     const handleSendMessage = async () =>{
         // trim() elimina spazi vuoti a inizio e fine messaggio e altri spazi vuoti come le tabulazioni
-        if (!id || !newMessage.trim()) return;
+        if (!id || (!newMessage.trim() && attachments.length === 0)) return;
         setSending(true);
         try{
-            const response = await userTicketPostMessageApi(id, newMessage);
+            const response = await userTicketPostMessageApi(id, newMessage, attachments);
             setMessages(prev => [...prev, response.data]);
             setNewMessage("");
+            setAttachments([]);
             toast.success('Messaggio inviato');
         }catch {
             toast.error('Errore nell\'invio del messaggio');
         }finally{
             setSending(false);
+        }
+    };
+
+    // Cancella allegati
+    const handleDeleteAttachment = async (attachmentId: number) => {
+        try {
+            await deleteAttachmentApi(attachmentId);
+            // Rimuovi l'attachment da tutti i messaggi nello state
+            setMessages(prev => prev.map(msg => ({
+                ...msg,
+                attachments: msg.attachments?.filter(a => a.id !== attachmentId)
+            })));
+            toast.success('Allegato rimosso');
+        } catch {
+            toast.error('Errore nella rimozione dell\'allegato');
         }
     };
 
@@ -119,7 +140,15 @@ function UserTicket(){
                                             {new Date(msg.created_at).toLocaleString('it-IT')}
                                         </span>
                                     </div>
-                                    <p className="message-body">{msg.body}</p>
+                                    {msg.body && <p className="message-body">{msg.body}</p>}
+                                        {msg.attachments && msg.attachments.length > 0 && user && (
+                                            <AttachmentList
+                                                attachments={msg.attachments}
+                                                currentUserId={user.id}
+                                                currentUserRole={user.role}
+                                                onDelete={handleDeleteAttachment}
+                                            />
+                                        )}
                                 </div>
                             );
                         })
@@ -137,17 +166,18 @@ function UserTicket(){
                             value={newMessage}
                             onChange={e => setNewMessage(e.target.value)}
                             onKeyDown={e => {
-                                if( e.key === 'Enter' && !e.shiftKey){
+                                if (e.key === 'Enter' && !e.shiftKey) {
                                     e.preventDefault();
                                     handleSendMessage();
                                 }
                             }}
                             rows={3}
                         />
+                        <AttachmentPicker files={attachments} onChange={setAttachments} />
                         <button
                             className="reply-btn"
                             onClick={handleSendMessage}
-                            disabled={!newMessage.trim() || sending}
+                            disabled={(!newMessage.trim() && attachments.length === 0) || sending}
                         >
                             {sending ? "Invio..." : "Invia"}
                         </button>

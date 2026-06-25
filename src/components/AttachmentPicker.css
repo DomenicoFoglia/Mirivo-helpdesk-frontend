@@ -1,0 +1,122 @@
+.attachment-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden; /* fallback se qualcosa sfora ancora */
+}
+
+/* Zona drop / click */
+.attachment-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px 16px;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-tertiary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    color: var(--text-secondary);
+}
+
+.attachment-zone:hover {
+    border-color: var(--accent);
+    background: var(--bg-secondary);
+}
+
+.attachment-zone.is-dragging {
+    border-color: var(--accent);
+    background: var(--bg-secondary);
+    transform: scale(1.01);
+}
+
+.attachment-zone p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.attachment-zone p span {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+.attachment-zone small {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* Lista file selezionati */
+.attachment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.attachment-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    min-width: 0;
+    max-width: 100%;
+}
+
+.attachment-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* critico: permette al flex item di shrinkare */
+    overflow: hidden;
+}
+
+.attachment-name {
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.attachment-size {
+    font-size: 11px;
+    opacity: 0.6;
+}
+
+.attachment-remove {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    transition: all 0.15s ease;
+}
+
+.attachment-remove:hover {
+    background: rgba(220, 38, 38, 0.15);
+    color: #dc2626;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .attachment-zone {
+        padding: 16px 12px;
+    }
+    
+    .attachment-zone p {
+        font-size: 13px;
+    }
+}

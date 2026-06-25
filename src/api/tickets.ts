@@ -70,7 +70,16 @@ export interface CreateTicketData {
     message: string
 }
 
-export const userCreateTicketApi = async (data: CreateTicketData) => {
-    const response = await api.post('/tickets', data)
-    return response.data  // { message: string, ticket: Ticket }
+export const userCreateTicketApi = async (data: CreateTicketData, attachments: File[] = []) => {
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('category_id', String(data.category_id));
+    formData.append('message', data.message);
+
+    attachments.forEach(file => {
+        formData.append('attachments[]', file);
+    });
+
+    const response = await api.post('/tickets', formData);
+    return response.data;
 }

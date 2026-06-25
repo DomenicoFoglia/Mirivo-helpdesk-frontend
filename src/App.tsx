@@ -35,7 +35,6 @@ import AdminFaqs from './pages/admin/AdminFaqs'
 import Faqs from './pages/shared/Faqs'
 import UserTickets from './pages/user/UserTickets'
 
-
 function App() {
   const token = useAuthStore((state) => state.token)
   const setUser = useAuthStore((state) => state.setUser)
@@ -48,6 +47,8 @@ function App() {
         .catch(() => logout())
     }
   }, [])
+
+  
 
   return (
     <>

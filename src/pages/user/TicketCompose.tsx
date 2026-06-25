@@ -6,6 +6,7 @@ import { Plus, X } from 'lucide-react'
 import { userCreateTicketApi, categoriesApi } from '../../api/tickets'
 import type { Category } from '../../types'
 import './TicketCompose.css'
+import AttachmentPicker from '../../components/AttachmentPicker'
 
 function TicketCompose(){
     const navigate = useNavigate();
@@ -16,8 +17,10 @@ function TicketCompose(){
     const [ message, setMessage ] = useState('');
     const [ categoryId, setCategoryId ] = useState<number | ''>('');
     const [ categories, setCategories ] = useState<Category[]>([]);
+    const [ attachments, setAttachments ] = useState<File[]>([]);
     const [ submitting, setSubmitting ] = useState(false);
     const [ errors, setErrors ] = useState<Record<string, string>>({});
+
 
     // Carico le categorie
     useEffect(() => {
@@ -44,6 +47,7 @@ function TicketCompose(){
         setTitle('');
         setMessage('');
         setCategoryId('');
+        setAttachments([]);
         setErrors({});
     }
 
@@ -61,11 +65,14 @@ function TicketCompose(){
         setErrors({});
 
         try{
-            const res = await userCreateTicketApi({
-                title,
-                category_id: Number(categoryId),
-                message
-            });
+            const res = await userCreateTicketApi(
+                {
+                    title,
+                    category_id: Number(categoryId),
+                    message
+                },
+                attachments
+            );
             toast.success('Ticket creato');
             navigate(`/user/ticket/${res.ticket.id}`);
         }catch(err){
@@ -76,6 +83,11 @@ function TicketCompose(){
                     flat[key] = (msgs as string[])[0];
                 }
                 setErrors(flat);
+                 // Se c'è un errore sugli attachments, mostralo anche come toast
+                const attachmentError = Object.keys(flat).find(k => k.startsWith('attachments'));
+                if (attachmentError) {
+                    toast.error(flat[attachmentError]);
+                }
             }else{
                 console.error('Errore creazione ticket:', err)
                 toast.error('Errore nella creazione del ticket')
@@ -151,6 +163,11 @@ function TicketCompose(){
                     placeholder="Descrivi il problema nel dettaglio..."
                     />
                 {errors.message && <span className="field-error">{errors.message}</span>}
+            </div>
+
+            <div className="compose-field">
+                <label>Allegati (opzionali)</label>
+                <AttachmentPicker files={attachments} onChange={setAttachments} />
             </div>
 
             <div className="compose-actions">
