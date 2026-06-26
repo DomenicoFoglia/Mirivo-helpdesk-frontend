@@ -171,3 +171,20 @@ export interface Attachment {
     created_at: string;
     updated_at: string;
 }
+
+// CHATBOT
+export interface ChatbotMessage {
+    role: 'user' | 'assistant'
+    content: string
+}
+
+export interface TicketSuggestion {
+    title: string
+    category_id: number | null
+}
+
+export interface ChatbotResponse {
+    type: 'deflection' | 'escalation'
+    message: string
+    ticket_suggestion?: TicketSuggestion | null
+}

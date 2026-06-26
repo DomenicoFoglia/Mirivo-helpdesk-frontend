@@ -6,6 +6,7 @@ import type { NavItem } from "../../types"
 import { useEffect, useState } from "react"
 import useAuthStore from "../../store/authStore"
 import { ticketListApi, availableTicketListApi, escalatedAvailableApi } from "../../api/tickets"
+import Chatbot from "../Chatbot/Chatbot"
 
 
 function AppShell({ navItems }: { navItems: NavItem[] }) {
@@ -86,6 +87,7 @@ function AppShell({ navItems }: { navItems: NavItem[] }) {
             <div className="body">
                 <Sidebar navItems={navWithBadge} drawerOpen={drawerOpen} onClose={() => setDrawerOpen(false)}/>
                 <main><Outlet /></main>
+                {user?.role === 'user' && <Chatbot />}
             </div>
         </div>
     )

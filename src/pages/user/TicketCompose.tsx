@@ -1,15 +1,16 @@
 import { useState, useEffect, useRef} from 'react'
-import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import axios from 'axios'
 import { Plus, X } from 'lucide-react'
 import { userCreateTicketApi, categoriesApi } from '../../api/tickets'
-import type { Category } from '../../types'
+import type { Category, TicketSuggestion } from '../../types'
 import './TicketCompose.css'
 import AttachmentPicker from '../../components/AttachmentPicker'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 function TicketCompose(){
     const navigate = useNavigate();
+    const location = useLocation();
     const titleRef = useRef<HTMLInputElement>(null);
 
     const [ expanded, setExpanded ] = useState(false);
@@ -42,6 +43,20 @@ function TicketCompose(){
             titleRef.current?.focus();
         }
     }, [expanded]);
+
+    // Precompilazione da suggerimento Mira (chatbot)
+    useEffect(() => {
+        const state = location.state as { ticketSuggestion?: TicketSuggestion } | null;
+        if (state?.ticketSuggestion) {
+            setTitle(state.ticketSuggestion.title);
+            if (state.ticketSuggestion.category_id !== null) {
+                setCategoryId(state.ticketSuggestion.category_id);
+            }
+            setExpanded(true);
+            // Pulisce lo state per evitare ri-trigger su torni successivi alla dashboard
+            navigate(location.pathname, { replace: true, state: null });
+        }
+    }, [location.state, location.pathname, navigate]);
 
     const resetForm = () =>{
         setTitle('');
