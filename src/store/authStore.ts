@@ -3,8 +3,7 @@ import type { User } from '../types/index'
 
 interface AuthStore {
     user: User | null
-    token: string | null
-    login: (user: User, token: string) => void
+    login: (user: User) => void
     setUser: (user: User) => void
     logout: () => void
 }
@@ -17,15 +16,13 @@ applyTheme(localStorage.getItem('theme') || 'amber')
 
 const useAuthStore = create<AuthStore>((set) => ({
     user: null,
-    token: localStorage.getItem('token') || null,
 
-    login: (user, token) => {
-        localStorage.setItem('token', token)
+    login: (user) => {
         if (user?.theme) {
             applyTheme(user.theme)
             localStorage.setItem('theme', user.theme)
         }
-        set({ user, token })
+        set({ user })
     },
 
     setUser: (user) => {
@@ -37,9 +34,8 @@ const useAuthStore = create<AuthStore>((set) => ({
     },
 
     logout: () => {
-        localStorage.removeItem('token')
         localStorage.removeItem('theme')
-        set({ user: null, token: null })
+        set({ user: null })
     },
 }))
 

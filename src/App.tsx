@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
@@ -34,21 +34,21 @@ import ForgotPassword from './pages/auth/ForgetPassword'
 import AdminFaqs from './pages/admin/AdminFaqs'
 import Faqs from './pages/shared/Faqs'
 import UserTickets from './pages/user/UserTickets'
+import api from './api/axios'
 
 function App() {
-  const token = useAuthStore((state) => state.token)
   const setUser = useAuthStore((state) => state.setUser)
-  const logout = useAuthStore((state) => state.logout)
+  const [bootstrapping, setBootstrapping] = useState(true)
 
   useEffect(() => {
-    if (token) {
-      getMeApi()
+    api.get('/sanctum/csrf-cookie', { baseURL: 'http://localhost:8000' })
+        .then(() => getMeApi())
         .then((response) => setUser(response.data))
-        .catch(() => logout())
-    }
+        .catch(() => {/* utente non loggato, normale */})
+        .finally(() => setBootstrapping(false))
   }, [])
 
-  
+  if (bootstrapping) return null
 
   return (
     <>

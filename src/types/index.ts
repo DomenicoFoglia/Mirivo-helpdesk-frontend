@@ -3,7 +3,6 @@ import type { LucideIcon } from "lucide-react"
 export interface AuthResponse{
     message?: string
     user: User
-    token: string
 }
 
 export interface Company {

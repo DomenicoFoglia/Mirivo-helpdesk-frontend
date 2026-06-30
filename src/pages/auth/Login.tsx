@@ -20,8 +20,8 @@ function Login() {
         e.preventDefault();
         try {
             const response = await loginApi(email, password);
-            const { token, user } = response.data;
-            login(user, token);
+            const { user } = response.data;
+            login(user);
             navigate(`/${user.role}/dashboard`);
         } catch (error) {
             if (handleRateLimit(error)) return;

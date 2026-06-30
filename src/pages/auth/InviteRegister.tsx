@@ -129,7 +129,7 @@ function InviteRegister() {
                 password,
                 password_confirmation: passwordConfirmation,
             })
-            login(response.user, response.token)
+            login(response.user)
             navigate(`/${response.user.role}/dashboard`, { replace: true })
         } catch (error) {
             if (handleRateLimit(error)) return;

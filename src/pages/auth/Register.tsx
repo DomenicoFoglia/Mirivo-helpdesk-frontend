@@ -31,8 +31,8 @@ function Register() {
         try {
             // if(!logo) return;
             const response = await registerApi(name, surname, email, password, passwordConfirmation, companyName, logo);
-            const { user, token } = response.data;
-            login(user, token);
+            const { user } = response.data;
+            login(user);
             navigate(`/${user.role}/dashboard`);
         } catch(error) {
             if (handleRateLimit(error)) return;

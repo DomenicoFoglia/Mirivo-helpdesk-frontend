@@ -4,14 +4,12 @@ import useAuthStore from '../store/authStore'
 import i18next from 'i18next' 
 
 const api = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api',
+    baseURL: 'http://localhost:8000/api',
+    withCredentials: true,
+    withXSRFToken: true,
 })
 
 api.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token')
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`
-    }
     config.headers['Accept-Language'] = i18next.language
     return config
 })
@@ -24,7 +22,7 @@ api.interceptors.response.use(
         if (!error.response) {
         // nessuna risposta dal server (network down, server spento)
             toast.error('Errore di rete', {id: 'network-error'});
-        } else if (status === 401 && useAuthStore.getState().token) {
+        } else if (status === 401 && useAuthStore.getState().user) {
         // sessione scaduta
             toast.error('Sessione scaduta', {id: 'session-expired'});
             useAuthStore.getState().logout();
