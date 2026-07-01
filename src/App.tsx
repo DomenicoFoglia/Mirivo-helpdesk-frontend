@@ -35,6 +35,7 @@ import AdminFaqs from './pages/admin/AdminFaqs'
 import Faqs from './pages/shared/Faqs'
 import UserTickets from './pages/user/UserTickets'
 import api from './api/axios'
+import LevelRoute from './components/LevelRoute'
 
 function App() {
   const setUser = useAuthStore((state) => state.setUser)
@@ -81,12 +82,14 @@ function App() {
               <Route path="/agent/dashboard" element={<AgentDashboard />} />
               <Route path="/agent/tickets" element={<AgentTicketList />} />
               <Route path="/agent/ticket/:id" element={<AgentTicket />} />
-              <Route path="/agent/tickets/escalated" element={<EscalatedTickets />} />
               <Route path="/agent/tickets/available" element={<AvailableTickets />} />
               <Route path="/agent/profile" element={<Profile />} />
               <Route path="/agent/faqs" element={<Faqs />} />
               {/* Riutilizziamo il componente di admin AdminFaqs */}
-              <Route path="/agent/faqs/manage" element={<AdminFaqs />} />
+              <Route element={<LevelRoute requiredLevel={2} />}>
+                <Route path="/agent/tickets/escalated" element={<EscalatedTickets />} />
+                <Route path="/agent/faqs/manage" element={<AdminFaqs />} />
+              </Route>
             </Route>
           </Route>
 
