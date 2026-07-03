@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom'
 // import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../LanguageSwitcher'
 import { Menu } from 'lucide-react'
+import { storageUrl } from '../../utility/storageUrl'
 
 
 function Topbar({onHamburgerClick}: {onHamburgerClick: () => void}){
@@ -28,7 +29,16 @@ function Topbar({onHamburgerClick}: {onHamburgerClick: () => void}){
         <header className="topbar">
             <button className='hamburger-btn' onClick={onHamburgerClick}><Menu size={22} /></button>
             <span className="wordmark">mir<em>i</em>vo</span>
-            <span className="ws-chip">{user?.company.name}</span>
+            <span className="ws-chip">
+                {user?.company.logo && (
+                    <img 
+                        src={storageUrl(user.company.logo) ?? ''} 
+                        alt={user.company.name}
+                        className="ws-chip-logo"
+                    />
+                )}
+                {user?.company.name}
+            </span>
             <div className="topbar-user-section">
                 <LanguageSwitcher variant="light" />
                 <span 

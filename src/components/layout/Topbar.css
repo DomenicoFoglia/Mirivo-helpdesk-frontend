@@ -30,13 +30,24 @@
 }
 
 .ws-chip {
-    font-size: 11px;
-    padding: 3px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 19px;
+    padding: 3px 10px 3px 4px;
     border-radius: 20px;
-    background: #FAEEDA;
-    color: #633806;
+    /* background: var(--accent-muted); */
+    color: var(--text-secondary);
     font-weight: 500;
     margin-left: 10px;
+}
+
+.ws-chip-logo {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .topbar-user-section {

@@ -9,6 +9,7 @@ export interface Company {
     id: number
     name: string
     slug: string
+    logo: string | null
 }
 
 export interface User {
