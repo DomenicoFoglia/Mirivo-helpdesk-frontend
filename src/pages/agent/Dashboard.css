@@ -1,0 +1,189 @@
+/* ==========================================================================
+   Dashboard Agenti
+   Allineata allo stile della dashboard utenti: usa le variabili del tema,
+   niente colori hardcoded, cosi' si adatta a tutti i temi (amber, midnight, ...).
+   ========================================================================== */
+
+.agent-dashboard {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Titolo */
+.agent-dashboard-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.agent-dashboard-company {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 4px 0 0 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.agent-dashboard-level {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    background: var(--accent-muted);
+    color: var(--text-secondary);
+}
+
+/* Metrica in cima */
+.agent-metric-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.agent-metric-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+}
+
+.agent-metric-value {
+    font-size: 1.875rem;
+    font-weight: 500;
+    color: var(--accent);
+}
+
+.agent-metric-left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.agent-metric-spark {
+    width: 128px;
+}
+
+/* Sparkline */
+.agent-sparkline {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 28px;
+}
+
+.agent-sparkline-bar {
+    width: 6px;
+    border-radius: 2px 2px 0 0;
+    display: inline-block;
+    background: var(--accent);
+}
+
+/* Griglia card dettaglio */
+.agent-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+@media (min-width: 768px) {
+    .agent-dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Card lista */
+.agent-list-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.agent-list-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin: 0 0 12px 0;
+}
+
+.agent-list-body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Separatori tra ticket (come dashboard utenti) */
+.agent-list-body > .agent-ticket-row {
+    border-top: 1px solid var(--border-color);
+}
+
+.agent-list-body > .agent-ticket-row:first-child {
+    border-top: none;
+}
+
+/* Riga ticket */
+.agent-ticket-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    padding: 0.625rem 0;
+    transition: background 0.15s;
+}
+
+.agent-ticket-row:hover {
+    background: var(--bg-tertiary);
+}
+
+.agent-ticket-title {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Stato vuoto */
+.agent-list-empty {
+    font-size: 0.85rem;
+    color: var(--text-hint);
+    padding: 8px 0;
+}
+
+/* Badge di stato (stesso stile della dashboard utenti) */
+.agent-status-badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    margin-left: 8px;
+    flex-shrink: 0;
+    text-transform: capitalize;
+}
+
+.agent-status-badge.working {
+    background: #EEEDFE;
+    color: #3C3489;
+}
+
+.agent-status-badge.closed {
+    background: #F1EFE8;
+    color: #444441;
+}
+
+.agent-status-badge.open {
+    background: #FAEEDA;
+    color: #633806;
+}
+
+.agent-status-badge.escalated {
+    background: #FDE8E8;
+    color: #9B1C1C;
+}

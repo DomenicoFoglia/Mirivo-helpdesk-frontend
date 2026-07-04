@@ -3,6 +3,7 @@ import { statsApi, detailsApi } from "../../api/adminDashboard"
 import type { AdminDashboardDetails } from "../../types"
 import useAuthStore from "../../store/authStore"
 import { Link } from "react-router-dom"
+import "./Dashboard.css"
 
 function Dashboard() {
     const [stats, setStats] = useState({
@@ -38,80 +39,81 @@ function Dashboard() {
     }, []);
 
     return (
-        <div className="p-6 flex flex-col gap-4">
+        <div className="admin-dashboard">
+
             {/* Titolo */}
             <div>
-                <h1 className="text-xl font-medium text-gray-800">Benvenuto, {user?.name}</h1>
-                <p className="text-sm text-gray-500">{user?.company?.name}</p>
+                <h1 className="admin-dashboard-title">Benvenuto, {user?.name}</h1>
+                <p className="admin-dashboard-company">{user?.company?.name}</p>
             </div>
 
-            {/* Metriche: riga scrollabile su mobile, colonna a destra su desktop */}
-            {/* Su mobile: order-first, flex-row con overflow-x-auto */}
-            {/* Su desktop: sparisce da qui, appare nella colonna destra tramite il flex esterno */}
+            {/* Layout principale: metriche a lato su desktop, in cima su mobile */}
+            <div className="admin-dashboard-layout">
 
-            {/* Layout principale */}
-            <div className="flex flex-col lg:flex-row gap-3 items-start">
-
-                {/* Colonna metriche: in cima su mobile, a destra su desktop */}
-                <div className="w-full lg:w-56 lg:flex-shrink-0 lg:order-2 flex flex-row lg:flex-col gap-3 overflow-x-auto pb-1 lg:pb-0">
+                {/* Colonna metriche */}
+                <div className="admin-metrics">
 
                     {/* Card critica */}
-                    <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-3 min-w-40 lg:min-w-0">
-                        <span className="text-xs font-medium text-gray-500 tracking-wide">Senza risposta +24h</span>
-                        <span className="text-4xl font-medium" style={{ color: "#A32D2D" }}>{stats.withoutAnswerTickets}</span>
+                    <div className="admin-metric-card critical">
+                        <span className="admin-metric-label">Senza risposta +24h</span>
+                        <span className="admin-metric-value large danger">{stats.withoutAnswerTickets}</span>
                         {stats.withoutAnswerTickets > 0 && (
-                            <div className="flex flex-col gap-1">
-                                <span className="text-xl" style={{ color: "#E24B4A" }}>⚠</span>
-                                <span className="text-xs font-medium px-2 py-0.5 rounded-full w-fit" style={{ background: "#FCEBEB", color: "#791F1F" }}>richiede attenzione</span>
+                            <div className="admin-metric-alert">
+                                <span className="admin-metric-alert-icon">⚠</span>
+                                <span className="admin-metric-alert-badge">richiede attenzione</span>
                             </div>
                         )}
                     </div>
 
-                    <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-2 min-w-36 lg:min-w-0">
-                        <span className="text-xs font-medium text-gray-500 tracking-wide">Ticket aperti</span>
-                        <span className="text-3xl font-medium" style={{ color: "#BA7517" }}>{stats.openTickets}</span>
+                    <div className="admin-metric-card">
+                        <span className="admin-metric-label">Ticket aperti</span>
+                        <span className="admin-metric-value warning">{stats.openTickets}</span>
                     </div>
 
-                    <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-2 min-w-36 lg:min-w-0">
-                        <span className="text-xs font-medium text-gray-500 tracking-wide">In lavorazione</span>
-                        <span className="text-3xl font-medium" style={{ color: "#534AB7" }}>{stats.workingTickets}</span>
+                    <div className="admin-metric-card">
+                        <span className="admin-metric-label">In lavorazione</span>
+                        <span className="admin-metric-value working">{stats.workingTickets}</span>
                     </div>
 
-                    <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-2 min-w-36 lg:min-w-0">
-                        <span className="text-xs font-medium text-gray-500 tracking-wide">Risolti oggi</span>
-                        <span className="text-3xl font-medium" style={{ color: "#3B6D11" }}>{stats.closedTicketsToday}</span>
+                    <div className="admin-metric-card">
+                        <span className="admin-metric-label">Risolti oggi</span>
+                        <span className="admin-metric-value success">{stats.closedTicketsToday}</span>
                     </div>
 
                 </div>
 
-                {/* Card dettaglio: grid 1 colonna su mobile, 2 colonne su desktop */}
-                <div className="flex-1 lg:order-1 grid grid-cols-1 md:grid-cols-2 gap-3">
+                {/* Card dettaglio */}
+                <div className="admin-details-grid">
 
                     {/* Richiede attenzione */}
-                    <div className="bg-white border border-gray-200 rounded-xl p-5">
-                        <h3 className="text-sm font-medium text-gray-700 mb-3">Richiede attenzione</h3>
-                        <div className="flex flex-col gap-2">
+                    <div className="admin-detail-card">
+                        <h3 className="admin-detail-title">Richiede attenzione</h3>
+                        <div className="admin-detail-body">
+                            {details.attentionTickets.length === 0 && (
+                                <p className="admin-detail-empty">Nessun ticket critico</p>
+                            )}
                             {details.attentionTickets.map(ticket => (
-                                <Link to={`/admin/ticket/${ticket.id}`} key={ticket.id} className="flex items-center gap-2 hover:bg-gray-50 transition-colors rounded px-1 -mx-1">
-                                    <span className={`w-2 h-2 rounded-full flex-shrink-0 ${
-                                        ticket.priority === "high" ? "bg-red-500" :
-                                        ticket.priority === "medium" ? "bg-yellow-400" :
-                                        "bg-gray-300"
-                                    }`} />
-                                    <span className="text-sm text-gray-600 truncate">{ticket.title}</span>
+                                <Link to={`/admin/ticket/${ticket.id}`} key={ticket.id} className="admin-detail-row clickable">
+                                    <span className="admin-detail-row-left">
+                                        <span className={`admin-priority-dot ${ticket.priority}`} />
+                                        <span className="admin-detail-text">{ticket.title}</span>
+                                    </span>
                                 </Link>
                             ))}
                         </div>
                     </div>
 
                     {/* Agenti con carico */}
-                    <div className="bg-white border border-gray-200 rounded-xl p-5">
-                        <h3 className="text-sm font-medium text-gray-700 mb-3">Agenti con carico</h3>
-                        <div className="flex flex-col gap-2">
+                    <div className="admin-detail-card">
+                        <h3 className="admin-detail-title">Agenti con carico</h3>
+                        <div className="admin-detail-body">
+                            {details.agents.length === 0 && (
+                                <p className="admin-detail-empty">Nessun agente</p>
+                            )}
                             {details.agents.map(agent => (
-                                <div key={agent.id} className="flex items-center justify-between">
-                                    <span className="text-sm text-gray-600">{agent.name}</span>
-                                    <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{ background: "#EEEDFE", color: "#3C3489" }}>
+                                <div key={agent.id} className="admin-detail-row">
+                                    <span className="admin-detail-text">{agent.name}</span>
+                                    <span className="admin-badge load">
                                         {agent.assignee_tickets_count} ticket
                                     </span>
                                 </div>
@@ -120,13 +122,16 @@ function Dashboard() {
                     </div>
 
                     {/* Inviti pendenti */}
-                    <div className="bg-white border border-gray-200 rounded-xl p-5">
-                        <h3 className="text-sm font-medium text-gray-700 mb-3">Inviti pendenti</h3>
-                        <div className="flex flex-col gap-2">
+                    <div className="admin-detail-card">
+                        <h3 className="admin-detail-title">Inviti pendenti</h3>
+                        <div className="admin-detail-body">
+                            {details.pendingInvitations.length === 0 && (
+                                <p className="admin-detail-empty">Nessun invito pendente</p>
+                            )}
                             {details.pendingInvitations.map(inv => (
-                                <div key={inv.email} className="flex items-center justify-between">
-                                    <span className="text-sm text-gray-600">{inv.email}</span>
-                                    <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{ background: "#FAEEDA", color: "#633806" }}>
+                                <div key={inv.email} className="admin-detail-row">
+                                    <span className="admin-detail-text">{inv.email}</span>
+                                    <span className="admin-badge role">
                                         {inv.role}
                                     </span>
                                 </div>
@@ -135,13 +140,18 @@ function Dashboard() {
                     </div>
 
                     {/* FAQ recenti */}
-                    <div className="bg-white border border-gray-200 rounded-xl p-5">
-                        <h3 className="text-sm font-medium text-gray-700 mb-3">FAQ recenti</h3>
-                        <div className="flex flex-col gap-2">
+                    <div className="admin-detail-card">
+                        <h3 className="admin-detail-title">FAQ recenti</h3>
+                        <div className="admin-detail-body">
+                            {details.recentFaqs.length === 0 && (
+                                <p className="admin-detail-empty">Nessuna FAQ</p>
+                            )}
                             {details.recentFaqs.map(faq => (
-                                <div key={faq.id} className="flex items-center gap-2">
-                                    <span className="text-gray-300 text-xs">—</span>
-                                    <span className="text-sm text-gray-600">{faq.question}</span>
+                                <div key={faq.id} className="admin-detail-row">
+                                    <span className="admin-detail-row-left">
+                                        <span className="admin-faq-dash">–</span>
+                                        <span className="admin-detail-text">{faq.question}</span>
+                                    </span>
                                 </div>
                             ))}
                         </div>
