@@ -135,17 +135,17 @@
     color: #791F1F;
 }
 
-/* Griglia card dettaglio */
 .admin-details-grid {
     flex: 1;
+    min-width: 0;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 12px;
 }
 
 @media (min-width: 768px) {
     .admin-details-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
 }
 
