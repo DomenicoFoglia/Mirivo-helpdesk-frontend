@@ -4,7 +4,7 @@ import useAuthStore from '../store/authStore'
 import i18next from 'i18next' 
 
 const api = axios.create({
-    baseURL: 'http://localhost:8000/api',
+    baseURL: import.meta.env.VITE_API_URL + '/api',
     withCredentials: true,
     withXSRFToken: true,
 })

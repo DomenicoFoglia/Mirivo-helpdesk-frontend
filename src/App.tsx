@@ -42,7 +42,7 @@ function App() {
   const [bootstrapping, setBootstrapping] = useState(true)
 
   useEffect(() => {
-    api.get('/sanctum/csrf-cookie', { baseURL: 'http://localhost:8000' })
+    api.get('/sanctum/csrf-cookie', { baseURL: import.meta.env.VITE_API_URL })
         .then(() => getMeApi())
         .then((response) => setUser(response.data))
         .catch(() => {/* utente non loggato, normale */})

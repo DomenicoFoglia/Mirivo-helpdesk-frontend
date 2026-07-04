@@ -57,7 +57,9 @@ function AppShell({ navItems }: { navItems: NavItem[] }) {
 
     },[user?.role, user?.level, location.pathname]);
 
-    const filteredNavItems =navItems.filter( item => item.type !== 'item' || !item.requiredLevel || user?.level === item.requiredLevel);
+    const filteredNavItems = navItems.filter(item => 
+        item.type !== 'item' || !item.requiredLevel || (user?.level ?? 0) >= item.requiredLevel
+    );
 
     const navWithBadge = filteredNavItems.map(item => {
         // if (item.type === 'item' && item.path === '/admin/tickets') {
