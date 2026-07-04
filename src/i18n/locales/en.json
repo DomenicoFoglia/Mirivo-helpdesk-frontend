@@ -59,6 +59,11 @@
         "forgot_btn": "Send reset link",
         "forgot_sending": "Sending...",
         "forgot_check_email_title": "Check your inbox",
-        "forgot_check_email_desc": "If the email address is registered, you will shortly receive a message with the link to reset your password."
+        "forgot_check_email_desc": "If the email address is registered, you will shortly receive a message with the link to reset your password.",
+        "demo_title": "Try the demo",
+        "demo_admin": "Admin",
+        "demo_agent_l2": "Agent L2",
+        "demo_agent_l1": "Agent L1",
+        "demo_user": "User"
     }
 }

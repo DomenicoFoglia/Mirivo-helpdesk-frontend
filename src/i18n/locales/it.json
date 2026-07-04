@@ -59,6 +59,11 @@
         "forgot_btn": "Invia link di reset",
         "forgot_sending": "Invio in corso...",
         "forgot_check_email_title": "Controlla la tua posta",
-        "forgot_check_email_desc": "Se l'indirizzo email è registrato, riceverai a breve un messaggio con il link per reimpostare la password."
+        "forgot_check_email_desc": "Se l'indirizzo email è registrato, riceverai a breve un messaggio con il link per reimpostare la password.",
+        "demo_title": "Prova la demo",
+        "demo_admin": "Admin",
+        "demo_agent_l2": "Tecnico L2",
+        "demo_agent_l1": "Tecnico L1",
+        "demo_user": "Utente"
     }
 }
