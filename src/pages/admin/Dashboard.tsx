@@ -3,7 +3,6 @@ import { statsApi, detailsApi } from "../../api/adminDashboard"
 import type { AdminDashboardDetails } from "../../types"
 import useAuthStore from "../../store/authStore"
 import { Link } from "react-router-dom"
-import toast from "react-hot-toast"
 
 function Dashboard() {
     const [stats, setStats] = useState({

@@ -29,7 +29,10 @@ function Register() {
         e.preventDefault();
         setErrors({});
         try {
-            // if(!logo) return;
+            if (!logo) {
+                setErrors({ 'company.logo': 'Il logo è obbligatorio' });
+                return;
+            }
             const response = await registerApi(name, surname, email, password, passwordConfirmation, companyName, logo);
             const { user } = response.data;
             login(user);

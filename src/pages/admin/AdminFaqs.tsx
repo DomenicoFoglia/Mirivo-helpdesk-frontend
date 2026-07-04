@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { Plus, Pencil, Trash2, Search } from 'lucide-react'
 import { getFaqsApi, createFaqApi, updateFaqApi, deleteFaqApi, type CreateFaqData } from '../../api/faqs'
 import { categoriesApi } from '../../api/tickets'

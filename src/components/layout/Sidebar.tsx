@@ -2,7 +2,7 @@ import type { NavItem } from "../../types"
 import { useNavigate, NavLink } from "react-router-dom"
 import './Sidebar.css'
 
-function Sidebar({ navItems, drawerOpen, onClose }: { navItems: NavItem[]; drawerOpen: boolean; onClose: () => void }) {
+function Sidebar({ navItems, drawerOpen, onClose: _onClose }: { navItems: NavItem[]; drawerOpen: boolean; onClose: () => void }) {
     const navigate = useNavigate()
 
     return (
