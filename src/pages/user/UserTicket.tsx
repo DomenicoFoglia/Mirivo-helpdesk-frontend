@@ -80,12 +80,19 @@ function UserTicket(){
     // Cancella allegati
     const handleDeleteAttachment = async (attachmentId: number) => {
         try {
-            await deleteAttachmentApi(attachmentId);
-            // Rimuovi l'attachment da tutti i messaggi nello state
-            setMessages(prev => prev.map(msg => ({
-                ...msg,
-                attachments: msg.attachments?.filter(a => a.id !== attachmentId)
-            })));
+            const response = await deleteAttachmentApi(attachmentId);
+            const { message_deleted, message_id } = response.data;
+
+            if(message_deleted){
+                // Il messaggio era rimasto vuoto, rimuovilo tutto
+                setMessages(prev=> prev.filter(msg => msg.id !== message_id));
+            }else{
+                // Rimuovi solo l'allegato, il messaggio resta
+                setMessages(prev => prev.map(msg => ({
+                    ...msg,
+                    attachments: msg.attachments?.filter(a => a.id !== attachmentId)
+                })));
+            }
             toast.success('Allegato rimosso');
         } catch {
             toast.error('Errore nella rimozione dell\'allegato');
