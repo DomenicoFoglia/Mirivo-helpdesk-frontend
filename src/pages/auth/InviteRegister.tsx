@@ -160,7 +160,7 @@ function InviteRegister() {
             <div className="login-blob-1" />
             <div className="login-blob-2" />
             <div className="login-card register-card">
-                <div className="login-logo">M</div>
+                <img src="/LogoArancioneNoBg.png" alt="Mirivo" className="login-logo-img" />
                 <h2>{t('auth.invite_welcome_title')}</h2>
                 <p className="invite-intro">
                     <Trans

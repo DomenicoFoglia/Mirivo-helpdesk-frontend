@@ -51,7 +51,7 @@ function ForgotPassword() {
       <div className="login-blob-1" />
       <div className="login-blob-2" />
       <div className="login-card">
-        <div className="login-logo">M</div>
+        <img src="/LogoArancioneNoBg.png" alt="Mirivo" className="login-logo-img" />
 
         {submitted ? (
           <>

@@ -54,7 +54,7 @@ function Login() {
             <div className="login-blob-1" />
             <div className="login-blob-2" />
             <div className="login-card">
-                <div className="login-logo">M</div>
+                <img src="/LogoArancioneNoBg.png" alt="Mirivo" className="login-logo-img" />
                 <h2>{t('auth.login_title')}</h2>
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="login-input-wrapper">
