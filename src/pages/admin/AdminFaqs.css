@@ -1,239 +1,310 @@
-/* Container pagina */
 .admin-faqs-container {
-    max-width: 800px;
+    padding: 24px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 24px 16px;
+    color: var(--text-primary);
 }
 
-/* Header: titolo + bottone "Nuova FAQ" */
+/* Header */
 .admin-faqs-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    align-items: center;
     margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .admin-faqs-header h1 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-primary);
     margin: 0;
+    font-size: 24px;
+    color: var(--text-primary);
 }
 
 .admin-faqs-btn-create {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 10px 16px;
     background: var(--accent);
-    color: white;
+    color: var(--bg-secondary);
     border: none;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 500;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    white-space: nowrap;
+    font-family: inherit;
     transition: opacity 0.2s;
 }
 
-.admin-faqs-btn-create:hover:not(:disabled) {
-    opacity: 0.85;
-}
-
-.admin-faqs-btn-create:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
+.admin-faqs-btn-create:hover {
+    opacity: 0.9;
 }
 
 /* Filtri */
 .admin-faqs-filters {
     display: flex;
     gap: 12px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .admin-faqs-search {
-    flex: 1;
-    position: relative;
     display: flex;
     align-items: center;
-}
-
-.admin-faqs-search svg {
-    position: absolute;
-    left: 12px;
+    gap: 8px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0 12px;
+    flex: 1;
+    min-width: 200px;
     color: var(--text-muted);
-    pointer-events: none;
 }
 
 .admin-faqs-search input {
-    width: 100%;
-    padding: 10px 12px 10px 36px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background: var(--bg-secondary);
+    flex: 1;
+    background: transparent;
+    border: none;
     color: var(--text-primary);
-    font-size: 0.9rem;
+    padding: 10px 0;
+    font-size: 14px;
     outline: none;
-    transition: border-color 0.2s;
+    font-family: inherit;
 }
 
-.admin-faqs-search input:focus {
-    border-color: var(--accent);
+.admin-faqs-search input::placeholder {
+    color: var(--text-hint);
 }
 
 .admin-faqs-filters select {
-    padding: 10px 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
     background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px 12px;
     color: var(--text-primary);
-    font-size: 0.9rem;
-    outline: none;
+    font-size: 14px;
+    font-family: inherit;
     cursor: pointer;
-    min-width: 180px;
-    transition: border-color 0.2s;
 }
 
 .admin-faqs-filters select:focus {
+    outline: none;
     border-color: var(--accent);
 }
 
-/* Stato vuoto */
+/* Empty */
 .admin-faqs-empty {
-    color: var(--text-muted);
-    font-size: 0.9rem;
     text-align: center;
-    padding: 32px 0;
+    color: var(--text-muted);
+    padding: 40px;
+    background: var(--bg-secondary);
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
 }
 
-/* Lista FAQ */
+/* Lista */
 .admin-faqs-list {
     list-style: none;
-    margin: 0;
     padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
 }
 
 .admin-faqs-item {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.admin-faqs-item.expanded {
+    border-color: var(--accent);
+}
+
+/* Highlight per arrivo via hash (dura 2 secondi via JS) */
+.admin-faqs-item.highlighted {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-muted);
+    animation: faq-pulse 0.5s ease-out;
+}
+
+@keyframes faq-pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.005);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.admin-faqs-item-row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 8px;
+    padding: 0;
+}
+
+/* La domanda: e' un button per accessibilita', ma stilizzato come un div cliccabile */
+.admin-faqs-item-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
     gap: 12px;
-    padding: 12px;
-    border-radius: 8px;
+    background: transparent;
+    border: none;
+    padding: 14px 16px;
+    text-align: left;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-family: inherit;
+    min-width: 0; /* permette al testo di andare in ellipsis se serve */
     transition: background 0.15s;
 }
 
-.admin-faqs-item:hover {
+.admin-faqs-item-main:hover {
     background: var(--bg-tertiary);
 }
 
-.admin-faqs-item-main {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.admin-faqs-chevron {
+    color: var(--text-muted);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+}
+
+.admin-faqs-chevron.rotated {
+    transform: rotate(180deg);
+    color: var(--accent);
 }
 
 .admin-faqs-question {
-    color: var(--text-primary);
-    font-size: 0.9rem;
-    margin: 0;
     flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    min-width: 0;
+    line-height: 1.4;
 }
 
 .admin-faqs-category {
-    font-size: 0.75rem;
+    flex-shrink: 0;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
     font-weight: 500;
-    padding: 3px 10px;
-    border-radius: 999px;
-    white-space: nowrap;
+    background: var(--accent-muted);
+    color: var(--accent);
 }
 
-/* 6 varianti colore, una per slot modulo 6 */
-.admin-faqs-category-c0 { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }  /* amber */
-.admin-faqs-category-c1 { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }  /* blue */
-.admin-faqs-category-c2 { background: rgba(34, 197, 94, 0.15); color: #22c55e; }   /* green */
-.admin-faqs-category-c3 { background: rgba(236, 72, 153, 0.15); color: #ec4899; }  /* pink */
-.admin-faqs-category-c4 { background: rgba(168, 85, 247, 0.15); color: #a855f7; }  /* purple */
-.admin-faqs-category-c5 { background: rgba(20, 184, 166, 0.15); color: #14b8a6; }  /* teal */
-.admin-faqs-category-c6 { background: rgba(239, 68, 68, 0.15); color: #ef4444; }   /* red */
-.admin-faqs-category-c7 { background: rgba(132, 204, 22, 0.15); color: #84cc16; }  /* lime */
-.admin-faqs-category-c8 { background: rgba(99, 102, 241, 0.15); color: #6366f1; }  /* indigo */
-.admin-faqs-category-c9 { background: rgba(249, 115, 22, 0.15); color: #f97316; }  /* orange */
+/* Le classi c0-c9 mantengono la variazione cromatica per categoria, ma usiamo l'accent-muted come base.
+   Se vuoi colori davvero distinti per categoria, andrebbero definite qui a mano. Per ora tutte uguali. */
+.admin-faqs-category-c0,
+.admin-faqs-category-c1,
+.admin-faqs-category-c2,
+.admin-faqs-category-c3,
+.admin-faqs-category-c4,
+.admin-faqs-category-c5,
+.admin-faqs-category-c6,
+.admin-faqs-category-c7,
+.admin-faqs-category-c8,
+.admin-faqs-category-c9 {
+    background: var(--accent-muted);
+    color: var(--accent);
+}
 
+/* Azioni (matita, cestino) */
 .admin-faqs-actions {
     display: flex;
     gap: 4px;
+    padding: 0 12px;
     flex-shrink: 0;
 }
 
 .admin-faqs-icon-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    border: none;
-    border-radius: 6px;
-    background: transparent;
-    cursor: pointer;
-    color: var(--text-secondary);
     transition: background 0.15s, color 0.15s;
 }
 
-.admin-faqs-icon-btn:hover:not(:disabled) {
-    background: var(--bg-secondary);
-    color: var(--accent);
+.admin-faqs-icon-btn:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
 }
 
-.admin-faqs-icon-btn.danger:hover:not(:disabled) {
-    background: #fef2f2;
-    color: #ef4444;
+.admin-faqs-icon-btn.danger:hover {
+    background: rgba(220, 38, 38, 0.1);
+    color: rgb(220, 38, 38);
 }
 
-.admin-faqs-icon-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
+/* Risposta espansa */
+.admin-faqs-answer {
+    padding: 0 16px 16px 48px; /* padding-left maggiore per allinearsi al testo della domanda (dopo il chevron) */
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+    white-space: pre-wrap; /* preserva i newline della risposta */
+    border-top: 1px solid var(--border-color);
+    padding-top: 14px;
+    animation: faq-slide-down 0.2s ease-out;
 }
 
-/* Modal form */
+@keyframes faq-slide-down {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Modal (invariato ma con CSS variables) */
 .admin-faqs-modal-overlay {
     position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
     backdrop-filter: blur(2px);
-    padding: 16px;
+    padding: 20px;
 }
 
 .admin-faqs-modal {
-    background: #131825;
-    border: 1px solid #2a3044;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
-    padding: 24px;
-    max-width: 560px;
+    padding: 28px;
+    max-width: 600px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
 }
 
 .admin-faqs-modal h2 {
-    color: white;
-    font-size: 1.25rem;
+    color: var(--text-primary);
     margin: 0 0 20px 0;
+    font-size: 20px;
 }
 
 .admin-faqs-form-field {
@@ -242,8 +313,8 @@
 
 .admin-faqs-form-field label {
     display: block;
-    color: #8a90a0;
-    font-size: 0.8rem;
+    color: var(--text-primary);
+    font-size: 13px;
     font-weight: 500;
     margin-bottom: 6px;
 }
@@ -252,105 +323,82 @@
 .admin-faqs-form-field textarea,
 .admin-faqs-form-field select {
     width: 100%;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
     padding: 10px 12px;
-    background: #0d111c;
-    border: 1px solid #2a3044;
-    border-radius: 8px;
-    color: white;
-    font-size: 0.9rem;
+    font-size: 14px;
     font-family: inherit;
-    outline: none;
-    transition: border-color 0.2s;
     box-sizing: border-box;
+}
+
+.admin-faqs-form-field textarea {
+    resize: vertical;
+    min-height: 120px;
 }
 
 .admin-faqs-form-field input:focus,
 .admin-faqs-form-field textarea:focus,
 .admin-faqs-form-field select:focus {
+    outline: none;
     border-color: var(--accent);
 }
 
-.admin-faqs-form-field textarea {
-    resize: vertical;
-    min-height: 100px;
-}
-
-.admin-faqs-form-field input:disabled,
-.admin-faqs-form-field textarea:disabled,
-.admin-faqs-form-field select:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
 .admin-faqs-form-error {
-    color: #ef4444;
-    font-size: 0.8rem;
-    margin: 6px 0 0 0;
+    color: rgb(200, 60, 60);
+    font-size: 12px;
+    margin: 4px 0 0 0;
 }
 
 .admin-faqs-modal-actions {
     display: flex;
     gap: 10px;
     justify-content: flex-end;
-    margin-top: 20px;
+    margin-top: 8px;
 }
 
 .admin-faqs-modal-actions button {
     padding: 10px 20px;
     border-radius: 6px;
-    font-size: 0.875rem;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     border: none;
+    font-family: inherit;
     transition: opacity 0.2s;
 }
 
+.admin-faqs-modal-actions button:first-child {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.admin-faqs-modal-actions button:last-child {
+    background: var(--accent);
+    color: var(--bg-secondary);
+}
+
 .admin-faqs-modal-actions button:hover:not(:disabled) {
-    opacity: 0.85;
+    opacity: 0.9;
 }
 
 .admin-faqs-modal-actions button:disabled {
-    opacity: 0.4;
+    opacity: 0.5;
     cursor: not-allowed;
 }
 
-.admin-faqs-modal-actions button[type="button"] {
-    background: transparent;
-    border: 1px solid #2a3044;
-    color: #8a90a0;
-}
-
-.admin-faqs-modal-actions button[type="submit"] {
-    background: var(--accent);
-    color: white;
-}
-
 /* Mobile */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
     .admin-faqs-container {
-        padding: 16px 12px;
+        padding: 16px;
     }
-    
-    .admin-faqs-header {
-        flex-direction: column;
-        align-items: stretch;
+    .admin-faqs-actions {
+        padding: 0 8px;
     }
-    
-    .admin-faqs-btn-create {
-        justify-content: center;
-    }
-    
-    .admin-faqs-filters {
-        flex-direction: column;
-    }
-    
-    .admin-faqs-filters select {
-        min-width: 0;
-    }
-    
-    .admin-faqs-item-main {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
+    .admin-faqs-answer {
+        padding-left: 16px;
     }
 }
+

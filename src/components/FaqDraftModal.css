@@ -1,0 +1,306 @@
+.faq-draft-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+    padding: 20px;
+}
+
+.faq-draft-modal {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 28px;
+    max-width: 640px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.faq-draft-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.faq-draft-modal-header h2 {
+    color: var(--text-primary);
+    font-size: 20px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.faq-draft-modal-header h2 svg {
+    color: var(--accent);
+}
+
+.faq-draft-close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+}
+
+.faq-draft-close-btn:hover:not(:disabled) {
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+}
+
+.faq-draft-close-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.faq-draft-intro {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+}
+
+.faq-draft-accordion {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background: var(--bg-primary);
+}
+
+.faq-draft-accordion-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+}
+
+.faq-draft-accordion-header:hover {
+    background: var(--bg-tertiary);
+}
+
+.faq-draft-accordion-body {
+    padding: 12px 16px 16px 16px;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+.faq-draft-hint {
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0 0 12px 0;
+}
+
+.faq-draft-textarea {
+    width: 100%;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.faq-draft-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.faq-draft-counter {
+    color: var(--text-hint);
+    font-size: 12px;
+    text-align: right;
+    margin: 4px 0 0 0;
+}
+
+/* Warning: colori semantici fissi (indipendenti dal tema).
+   L'arancio è convenzione universale per "attenzione". */
+.faq-draft-warning {
+    display: flex;
+    gap: 12px;
+    background: rgba(251, 191, 36, 0.12);
+    border: 1px solid rgba(251, 191, 36, 0.35);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    color: rgb(180, 130, 20);
+}
+
+.faq-draft-warning-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.faq-draft-warning-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0 0 4px 0;
+    color: rgb(160, 110, 10);
+}
+
+.faq-draft-warning-reason {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0 0 8px 0;
+    line-height: 1.5;
+}
+
+.faq-draft-warning-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.faq-draft-warning-link:hover {
+    text-decoration: underline;
+}
+
+.faq-draft-form-field {
+    margin-bottom: 16px;
+}
+
+.faq-draft-form-field label {
+    display: block;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.faq-draft-form-field input,
+.faq-draft-form-field textarea,
+.faq-draft-form-field select {
+    width: 100%;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.faq-draft-form-field textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.faq-draft-form-field input:focus,
+.faq-draft-form-field textarea:focus,
+.faq-draft-form-field select:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.faq-draft-form-field input:disabled,
+.faq-draft-form-field textarea:disabled,
+.faq-draft-form-field select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.faq-draft-error {
+    color: rgb(200, 60, 60);
+    font-size: 12px;
+    margin: 4px 0 0 0;
+}
+
+.faq-draft-ai-note {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-style: italic;
+    margin: 0 0 20px 0;
+}
+
+.faq-draft-ai-note svg {
+    color: var(--accent);
+}
+
+.faq-draft-modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+.faq-draft-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s, background 0.2s;
+    font-family: inherit;
+}
+
+.faq-draft-btn:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.faq-draft-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.faq-draft-btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.faq-draft-btn-secondary:hover:not(:disabled) {
+    background: var(--bg-tertiary);
+}
+
+.faq-draft-btn-primary {
+    background: var(--accent);
+    color: var(--bg-secondary);
+}
+
+@media (max-width: 600px) {
+    .faq-draft-modal {
+        padding: 20px;
+    }
+    .faq-draft-modal-header h2 {
+        font-size: 18px;
+    }
+}

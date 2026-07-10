@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Plus, Pencil, Trash2, Search } from 'lucide-react'
+import { useLocation } from 'react-router-dom'
+import { Plus, Pencil, Trash2, Search, ChevronDown } from 'lucide-react'
 import { getFaqsApi, createFaqApi, updateFaqApi, deleteFaqApi, type CreateFaqData } from '../../api/faqs'
 import { categoriesApi } from '../../api/tickets'
 import type { Faq, Category } from '../../types'
@@ -21,7 +22,13 @@ function AdminFaqs() {
     const [formData, setFormData] = useState<CreateFaqData>({ question: '', answer: '', category_id: 0 })
     const [errors, setErrors] = useState<Partial<Record<keyof CreateFaqData, string>>>({})
 
+    // Espansione inline: solo una FAQ espansa alla volta.
+    const [expandedId, setExpandedId] = useState<number | null>(null)
+    // Highlight temporaneo dopo arrivo via hash: si spegne dopo 2 secondi.
+    const [highlightedId, setHighlightedId] = useState<number | null>(null)
+
     const user = useAuthStore(state => state.user)
+    const location = useLocation()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,6 +48,40 @@ function AdminFaqs() {
         }
         fetchData()
     }, [user])
+
+    // Hash reader: se l'URL contiene #faq-N, espandi la FAQ N + scroll + highlight.
+    // Dipende da `faqs` per aspettare il fetch (altrimenti getElementById non trova nulla).
+    useEffect(() => {
+        if (faqs.length === 0) return
+        if (!location.hash.startsWith('#faq-')) return
+
+        const id = Number(location.hash.replace('#faq-', ''))
+        if (isNaN(id)) return
+
+        setExpandedId(id)
+        setHighlightedId(id)
+
+        // Piccolo delay per far renderizzare l'espansione prima dello scroll,
+        // altrimenti scrolla alla posizione pre-espansione.
+        const scrollTimer = setTimeout(() => {
+            const el = document.getElementById(`faq-${id}`)
+            el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }, 50)
+
+        // Rimuove solo l'highlight dopo 2s, l'espansione resta.
+        const highlightTimer = setTimeout(() => {
+            setHighlightedId(null)
+        }, 2000)
+
+        return () => {
+            clearTimeout(scrollTimer)
+            clearTimeout(highlightTimer)
+        }
+    }, [faqs, location.hash])
+
+    const handleToggleExpand = (id: number) => {
+        setExpandedId(current => current === id ? null : id)
+    }
 
     const handleNewClick = () => {
         setSelectedFaq(null)
@@ -168,34 +209,58 @@ function AdminFaqs() {
                 <p className="admin-faqs-empty">Nessuna FAQ trovata.</p>
             ) : (
                 <ul className="admin-faqs-list">
-                    {filteredFaqs.map(faq => (
-                        <li key={faq.id} className="admin-faqs-item">
-                            <div className="admin-faqs-item-main">
-                                <p className="admin-faqs-question">{faq.question}</p>
-                                {faq.category && (
-                                    <span className={`admin-faqs-category admin-faqs-category-c${(faq.category_id * 7) % 10}`}>
-                                        {faq.category.name}
-                                    </span>
+                    {filteredFaqs.map(faq => {
+                        const isExpanded = expandedId === faq.id
+                        const isHighlighted = highlightedId === faq.id
+                        return (
+                            <li
+                                key={faq.id}
+                                id={`faq-${faq.id}`}
+                                className={`admin-faqs-item ${isExpanded ? 'expanded' : ''} ${isHighlighted ? 'highlighted' : ''}`}
+                            >
+                                <div className="admin-faqs-item-row">
+                                    <button
+                                        type="button"
+                                        className="admin-faqs-item-main"
+                                        onClick={() => handleToggleExpand(faq.id)}
+                                        aria-expanded={isExpanded}
+                                    >
+                                        <ChevronDown
+                                            size={16}
+                                            className={`admin-faqs-chevron ${isExpanded ? 'rotated' : ''}`}
+                                        />
+                                        <p className="admin-faqs-question">{faq.question}</p>
+                                        {faq.category && (
+                                            <span className={`admin-faqs-category admin-faqs-category-c${(faq.category_id * 7) % 10}`}>
+                                                {faq.category.name}
+                                            </span>
+                                        )}
+                                    </button>
+                                    <div className="admin-faqs-actions">
+                                        <button
+                                            className="admin-faqs-icon-btn"
+                                            onClick={() => handleEditClick(faq)}
+                                            aria-label="Modifica"
+                                        >
+                                            <Pencil size={16} />
+                                        </button>
+                                        <button
+                                            className="admin-faqs-icon-btn danger"
+                                            onClick={() => handleDeleteClick(faq)}
+                                            aria-label="Elimina"
+                                        >
+                                            <Trash2 size={16} />
+                                        </button>
+                                    </div>
+                                </div>
+                                {isExpanded && (
+                                    <div className="admin-faqs-answer">
+                                        {faq.answer}
+                                    </div>
                                 )}
-                            </div>
-                            <div className="admin-faqs-actions">
-                                <button
-                                    className="admin-faqs-icon-btn"
-                                    onClick={() => handleEditClick(faq)}
-                                    aria-label="Modifica"
-                                >
-                                    <Pencil size={16} />
-                                </button>
-                                <button
-                                    className="admin-faqs-icon-btn danger"
-                                    onClick={() => handleDeleteClick(faq)}
-                                    aria-label="Elimina"
-                                >
-                                    <Trash2 size={16} />
-                                </button>
-                            </div>
-                        </li>
-                    ))}
+                            </li>
+                        )
+                    })}
                 </ul>
             )}
 

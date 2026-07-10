@@ -13,6 +13,10 @@ import axios from "axios";
 import AttachmentPicker from "../../components/AttachmentPicker";
 import AttachmentList from "../../components/AttachmentList";
 import { deleteAttachmentApi } from "../../api/attachments";
+import { Sparkles } from "lucide-react";
+import FaqDraftModal from "../../components/FaqDraftModal";
+import type { Category } from "../../types";
+import { categoriesApi } from "../../api/tickets";
 
 
 function AdminTicket(){
@@ -40,6 +44,9 @@ function AdminTicket(){
     const [ error, setError ] = useState(false);
     // Utente da store Zustand
     const user = useAuthStore(state => state.user);
+    // Stati per modale FAQ
+    const [faqModalOpen, setFaqModalOpen] = useState(false);
+    const [categories, setCategories] = useState<Category[]>([]);
     
     const { id } = useParams();
 
@@ -158,6 +165,14 @@ function AdminTicket(){
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
+
+    // Modale FAQ
+    useEffect(() => {
+        if (!user) return;
+        categoriesApi(user.role)
+            .then(setCategories)
+            .catch(() => {/* il fetch principale gestisce l'errore visibile */});
+    }, [user]);
 
     if (loading) return <Spinner />;
     if (notFound) return <NotFound />;
@@ -368,8 +383,33 @@ function AdminTicket(){
                         </button>
                     </div>
 
+                    {/* TRASFORMA IN FAQ */}
+                    <div className="sidebar-field">
+                        <button
+                            className="action-btn"
+                            onClick={() => setFaqModalOpen(true)}
+                            disabled={ticket.status !== 'closed'}
+                            title={
+                                ticket.status !== 'closed'
+                                    ? 'Disponibile solo per ticket chiusi'
+                                    : 'Genera una bozza di FAQ da questo ticket'
+                            }
+                        >
+                            <Sparkles size={16} />
+                            {ticket.status !== 'closed' ? 'Trasforma in FAQ (ticket non chiuso)' : 'Trasforma in FAQ'}
+                        </button>
+                    </div>
+
                 </div>
             </div>
+            {ticket && (
+                <FaqDraftModal
+                    isOpen={faqModalOpen}
+                    ticketId={ticket.id}
+                    categories={categories}
+                    onClose={() => setFaqModalOpen(false)}
+                />
+            )}
         </div>
     );
 }

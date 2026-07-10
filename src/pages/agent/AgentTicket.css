@@ -247,6 +247,10 @@
 /* BOTTONI AZIONE SIDEBAR */
 .action-btn {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     padding: 8px 0;
     border: none;
     border-radius: 8px;
@@ -256,6 +260,7 @@
     transition: opacity 0.2s;
     background: var(--accent);
     color: var(--bg-primary);
+    font-family: inherit;
 }
 
 .action-btn:hover:not(:disabled) {
