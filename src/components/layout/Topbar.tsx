@@ -29,7 +29,7 @@ function Topbar({onHamburgerClick}: {onHamburgerClick: () => void}){
         <header className="topbar">
             <button className='hamburger-btn' onClick={onHamburgerClick}><Menu size={22} /></button>
             <span className="wordmark">
-                <img src="/LogoArancioneNoBg.png" alt="Mirivo" className="wordmark-logo" />
+                <img src="/LogoArancioneVerde.png" alt="Mirivo" className="wordmark-logo" />
                 <span className="wordmark-text">irivo</span>
             </span>
             <span className="ws-chip">

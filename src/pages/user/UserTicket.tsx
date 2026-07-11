@@ -39,11 +39,11 @@ function UserTicket(){
             if(!id)
                 return;
             try{
-                const [ ticketRes, messagesRes] = await Promise.all([
+                const [ ticketData, messagesRes] = await Promise.all([
                     userTicketApi(id),
                     userTicketGetMessagesApi(id)
                 ]);
-                setTicket(ticketRes.data);
+                setTicket(ticketData);
                 setMessages(messagesRes.data.data);
             }catch(err) {
                 if(axios.isAxiosError(err) && err.response?.status === 404){

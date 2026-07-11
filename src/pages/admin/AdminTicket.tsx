@@ -33,7 +33,7 @@ function AdminTicket(){
     const [ status, setStatus] = useState('');
     const [ changingStatus, setChangingStatus] = useState(false);
     // Stati per cambio priorita'
-    const [ priority, setPriority] = useState('');
+    const [priority, setPriority] = useState<Ticket['priority']>(null);
     const [ changingPriority, setChangingPriority] = useState(false);
     // Stato per escalation e loading duante la chiamata API
     const [ escalating, setEscalating] = useState(false);
@@ -55,14 +55,14 @@ function AdminTicket(){
             if(!id)
                 return;
             try{
-                const [ ticketRes, messagesRes] = await Promise.all([
+                const [ ticketData, messagesRes] = await Promise.all([
                     adminTicketApi(id),
                     ticketGetMessagesApi(id, 'admin')
                 ]);
-                setTicket(ticketRes.data);
+                setTicket(ticketData);
                 setMessages(messagesRes.data.data);
-                setStatus(ticketRes.data.status);
-                setPriority(ticketRes.data.priority);
+                setStatus(ticketData.status);
+                setPriority(ticketData.priority);
             }catch (err) {
                 if (axios.isAxiosError(err) && err.response?.status === 404) {
                     setNotFound(true);
@@ -120,8 +120,8 @@ function AdminTicket(){
         if (!id) return;
         setChangingStatus(true);
         try{
-            const response = await changeStatus(id, status, 'admin');
-            setStatus(response.data.status);
+            const updated = await changeStatus(id, status, 'admin');
+            setStatus(updated.status);
             toast.success('Stato aggiornato');
         }catch {
             toast.error('Errore nel cambio stato');
@@ -134,8 +134,8 @@ function AdminTicket(){
         if(!id || !ticket) return;
         setEscalating(true);
         try{
-            const response = await escalateTicket(id, 'admin');
-            setTicket({...ticket, status: response.data.status, assignee: response.data.assignee});
+            const escalated = await escalateTicket(id, 'admin');
+            setTicket({...ticket, status: escalated.status, assignee: escalated.assignee});
             toast.success('Ticket scalato al L2');
         }catch {
             toast.error('Errore nell\'escalation');
@@ -149,8 +149,8 @@ function AdminTicket(){
         if(!id || !ticket) return;
         setChangingPriority(true);
         try{
-            const response = await changePriority(id, priority, 'admin');
-            setPriority(response.data.priority);
+            const updated = await changePriority(id, priority, 'admin');
+            setPriority(updated.priority);
             toast.success('Priorità aggiornata');
         }catch {
             toast.error('Errore nel cambio priorità');
@@ -355,7 +355,7 @@ function AdminTicket(){
                         <select
                             className="status-select"
                             value={priority ?? ''}
-                            onChange={e => setPriority(e.target.value)}
+                            onChange={e => setPriority(e.target.value === '' ? null : e.target.value as 'low' | 'medium' | 'high')}
                             // disabled={changingPriority || ticket.assignee_id !== user?.id}
                         >
                             <option value="">Non assegnata</option>

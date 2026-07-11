@@ -95,7 +95,7 @@ function ResetPassword() {
             <div className="login-blob-2" />
 
             <div className="login-card">
-                <img src="/LogoArancioneNoBg.png" alt="Mirivo" className="login-logo-img" />
+                <img src="/LogoArancioneVerde.png" alt="Mirivo" className="login-logo-img" />
                 <h2>{t('auth.reset_title')}</h2>
 
                 <p style={{ color: 'rgb(255 255 255 / 60%)', fontSize: 14, marginBottom: 24 }}>

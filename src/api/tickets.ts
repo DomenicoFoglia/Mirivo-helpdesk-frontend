@@ -1,12 +1,19 @@
 import api from "./axios"
 import type { TicketListParams, Paginated, Ticket } from "../types";
 
-export const userTicketApi = async (id: string) =>{
-    return api.get(`/tickets/${id}`);
+export const userTicketApi = async (id: string): Promise<Ticket> =>{
+    const res = await api.get<Ticket>(`/tickets/${id}`);
+    return res.data;
 }
 
-export const agentTicketApi = async (id: string) => {
-    return api.get(`/agent/tickets/${id}`);
+export const agentTicketApi = async (id: string): Promise<Ticket> => {
+    const res = await api.get<Ticket>(`/agent/tickets/${id}`);
+    return res.data;
+}
+
+export const adminTicketApi = async (id: string): Promise<Ticket> => {
+    const res = await api.get<Ticket>(`/admin/tickets/${id}`);
+    return res.data;
 }
 
 export const ticketListApi = async (role: 'admin' | 'agent', params: TicketListParams = {} ) => {
@@ -24,20 +31,22 @@ export const categoriesApi = async (role: 'admin' | 'agent' | 'user') => {
     return res.data;
 }
 
-export const changeStatus = async (id: string, status: string, role: 'admin' | 'agent') => {
-    return api.put(`/${role}/tickets/${id}/updateStatus`, { status });
+export const changeStatus = async (id: string, status: string, role: 'admin' | 'agent'): Promise<Ticket> => {
+    const res = await api.put<Ticket>(`/${role}/tickets/${id}/updateStatus`, { status });
+    return res.data;
 }
 
-export const changePriority = async (id: string, priority: string, role: 'admin' | 'agent') =>{
-    return api.put(`/${role}/tickets/${id}/updatePriority`, {priority});
+export const changePriority = async (
+    id: string, 
+    priority: Ticket['priority'], // equivale a 'low' | 'medium' | 'high' | null
+    role: 'admin' | 'agent'): Promise<Ticket> =>{
+    const res = await api.put<Ticket>(`/${role}/tickets/${id}/updatePriority`, {priority});
+    return res.data;
 }
 
-export const adminTicketApi = async (id: string) => {
-    return api.get(`/admin/tickets/${id}`);
-}
-
-export const escalateTicket = async (id: string, role: 'admin' | 'agent') =>{
-    return api.put(`/${role}/tickets/${id}/escalate`);
+export const escalateTicket = async (id: string, role: 'admin' | 'agent'): Promise<Ticket> =>{
+    const res = await api.put<Ticket>(`/${role}/tickets/${id}/escalate`);
+    return res.data;
 }
 
 export const escalatedAvailableApi = async (role: 'admin' | 'agent') => {
@@ -45,12 +54,14 @@ export const escalatedAvailableApi = async (role: 'admin' | 'agent') => {
     return res.data;
 }
 
-export const assignEscalatedApi = async (id: string) => {
-    return api.post(`/agent/tickets/${id}/assignEscalated`);
+export const assignEscalatedApi = async (id: string): Promise<Ticket> => {
+    const res = await api.post<Ticket>(`/agent/tickets/${id}/assignEscalated`);
+    return res.data;
 }
 
-export const assignTicketApi = async (id: number) => {
-    return api.post(`/agent/tickets/${id}/assign`);
+export const assignTicketApi = async (id: number): Promise<Ticket> => {
+    const res = await api.post<Ticket>(`/agent/tickets/${id}/assign`);
+    return res.data;
 };
 
 interface userTicketListParams {
