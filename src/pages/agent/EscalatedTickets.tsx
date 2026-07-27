@@ -5,6 +5,7 @@ import type { Ticket } from "../../types";
 import { escalatedAvailableApi, assignEscalatedApi } from "../../api/tickets";
 import toast from "react-hot-toast"
 import "./EscalatedTickets.css";
+import { useLastVisit } from "../../hooks/useLastVisit";
 
 
 function EscalatedTickets (){
@@ -16,6 +17,7 @@ function EscalatedTickets (){
 
     const user = useAuthStore(state => state.user);
     const navigate = useNavigate();
+    const lastVisit = useLastVisit('agent-escalated');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -108,6 +110,9 @@ function EscalatedTickets (){
                                     onClick={() => navigate(`/${user?.role}/ticket/${ticket.id}`)}
                                 >
                                     {ticket.title}
+                                    {lastVisit !== null && new Date(ticket.created_at).getTime() > lastVisit && (
+                                        <span className="new-badge">Nuovo</span>
+                                    )}
                                 </td>
                                 <td data-label="Autore">{`${ticket.user?.name} ${ticket.user?.surname}`}</td>
                                 <td data-label="Priorità">

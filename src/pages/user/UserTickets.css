@@ -231,3 +231,22 @@
     justify-content: space-between;
   }
 }
+
+.ticket-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 0;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+    font-family: inherit;
+}
+
+.ticket-back:hover {
+    color: var(--text-primary);
+}

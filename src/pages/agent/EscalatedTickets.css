@@ -183,3 +183,17 @@
     }
 }
 
+.new-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: var(--accent);
+    color: var(--bg-primary);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+

@@ -6,12 +6,14 @@ import type { Ticket } from "../../types";
 import toast from "react-hot-toast";
 import '../admin/AdminTicketList.css';
 import type { Category } from "../../types";
+import { useLastVisit } from "../../hooks/useLastVisit";
 
 
 function AvailableTickets(){
     const [ tickets, setTickets ] = useState<Ticket[]>([]);
     const [ loading, setLoading ] = useState(true);
     const navigate = useNavigate();
+    const lastVisit = useLastVisit('agent-available');
     // Stati per la ricerca
     const [priority, setPriority] = useState('');
     const [categoryId, setCategoryId] = useState('');
@@ -61,8 +63,29 @@ function AvailableTickets(){
     const handleTake = async (ticketId: number) => {
         try {
             await assignTicketApi(ticketId);
-            toast.success('Ticket preso in carico');
             setTickets(prev => prev.filter(t => t.id !== ticketId));
+            toast.success(
+                (t) => (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <span style={{ fontWeight: 500 }}>Ticket preso in carico</span>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                            <button
+                                style={{ padding: '4px 12px', borderRadius: '6px', border: 'none', background: 'var(--accent)', color: 'var(--bg-primary)', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 500 }}
+                                onClick={() => { navigate(`/agent/ticket/${ticketId}`); toast.dismiss(t.id) }}
+                            >
+                                Vai al ticket
+                            </button>
+                            <button
+                                style={{ padding: '4px 12px', borderRadius: '6px', border: '1px solid var(--border-color)', background: 'transparent', color: 'var(--text-primary)', cursor: 'pointer', fontSize: '0.85rem' }}
+                                onClick={() => toast.dismiss(t.id)}
+                            >
+                                Resta qui
+                            </button>
+                        </div>
+                    </div>
+                ),
+                { duration: Infinity }
+            );
         } catch {
             toast.error('Impossibile prendere il ticket');
         }
@@ -129,7 +152,12 @@ function AvailableTickets(){
                         {
                             tickets.map(ticket => (
                                 <tr key={ticket.id} onClick={() => navigate(`/agent/ticket/${ticket.id}`)}>
-                                    <td data-label="Titolo">{ticket.title}</td>
+                                    <td data-label="Titolo">
+                                        {ticket.title}
+                                        {lastVisit !== null && new Date(ticket.created_at).getTime() > lastVisit && (
+                                            <span className="new-badge">Nuovo</span>
+                                        )}
+                                    </td>
                                     <td data-label="Autore">
                                         {ticket.user ? `${ticket.user.name} ${ticket.user.surname}` : '-'}
                                     </td>

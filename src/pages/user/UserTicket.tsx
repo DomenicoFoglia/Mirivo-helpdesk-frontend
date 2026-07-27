@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useAuthStore from "../../store/authStore";
 import type { Ticket, Message } from "../../types";
 import { userTicketApi } from "../../api/tickets";
@@ -9,7 +9,7 @@ import toast from "react-hot-toast"
 import Spinner from "../../components/Spinner";
 import NotFound from "../NotFound";
 import axios from "axios";
-import { WifiOff } from "lucide-react"
+import { WifiOff, ArrowLeft } from "lucide-react"
 import AttachmentList from "../../components/AttachmentList";
 import { deleteAttachmentApi } from "../../api/attachments";
 import AttachmentPicker from "../../components/AttachmentPicker";
@@ -33,6 +33,7 @@ function UserTicket(){
     const [ attachments, setAttachments ] = useState<File[]>([]);
 
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -122,6 +123,14 @@ function UserTicket(){
             {/* COLONNA PRINCIPALE */}
             <div className="ticket-main">
                 <div className="ticket-header">
+                    <button
+                        className="ticket-back"
+                        onClick={() => navigate(-1)}
+                        aria-label="Torna indietro"
+                    >
+                        <ArrowLeft size={18} />
+                        <span>Indietro</span>
+                    </button>
                     <h1 className="ticket-title">{ticket.title}</h1>
                     <span className={`status-badge status-${ticket.status}`}>{ticket.status}</span>
                 </div>

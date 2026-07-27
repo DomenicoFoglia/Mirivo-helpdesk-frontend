@@ -6,12 +6,14 @@ import type { Ticket } from "../../types";
 import toast from "react-hot-toast";
 import './AdminTicketList.css';
 import type { Category } from "../../types";
+import { useLastVisit } from "../../hooks/useLastVisit";
 
 
 function AdminTicketList(){
     const [ tickets, setTickets ] = useState<Ticket[]>([]);
     const [ loading, setLoading ] = useState(true);
     const navigate = useNavigate();
+    const lastVisit = useLastVisit('admin-tickets');
     // Stati per la ricerca
     const [status, setStatus] = useState('');
     const [priority, setPriority] = useState('');
@@ -129,7 +131,12 @@ function AdminTicketList(){
                         {
                             tickets.map(ticket => (
                                 <tr key={ticket.id} onClick={() => navigate(`/admin/ticket/${ticket.id}`)}>
-                                    <td data-label="Titolo">{ticket.title}</td>
+                                    <td data-label="Titolo">
+                                        {ticket.title}
+                                        {lastVisit !== null && new Date(ticket.created_at).getTime() > lastVisit && (
+                                            <span className="new-badge">Nuovo</span>
+                                        )}
+                                    </td>
                                     <td data-label="Stato">
                                         <span className={`status-badge status-${ticket.status}`}>
                                             {ticket.status}
